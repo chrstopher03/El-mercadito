@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mercado Artesanías Somoto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins,sans-serif;
+}
+
+body{
+  background:#e7f4ff;
+  overflow-x:hidden;
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden}
+}
+
+
+
+/* APP */
+#app{
+  display:none;
+  padding-bottom:80px;
+}
+
+header{
+  background:#355e3b;
+  color:#fff;
+  padding:16px;
+  text-align:center;
+  font-weight:600;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg, #444ae0, #4e75ff);
+  color:#fff;
+  margin:16px;
+  padding:25px;
+  border-radius:25px;
+}
+
+/* SECTION */
+.section{
+  background:#fff;
+  margin:16px;
+  padding:18px;
+  border-radius:20px;
+  box-shadow:0 6px 15px rgba(0,0,0,.05);
+  animation:fadeIn .5s ease;
+}
+
+/* GRID CULTURA */
+.infoGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+
+/* CARDS MODERNAS */
+.infoCard{
+  padding:28px 18px;
+  border-radius:20px;
+  text-align:center;
+  cursor:pointer;
+  color:white;
+  transition:.35s;
+  position:relative;
+  overflow:hidden;
+}
+
+.infoCard.historia{
+  background:linear-gradient(135deg,#355e3b,#6b8e23);
+}
+
+.infoCard.cultura{
+  background:linear-gradient(135deg, #ff6f6f, #ff6565);
+}
+
+.infoCard:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.infoCard .icon{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+/* LUGARES */
+.lugares{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+.lugar{
+  background:#f3efe8;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+}
+
+/* GALERIA */
+.galeria{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:12px;
+}
+
+.galeria img{
+  width:100%;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* MODAL GLASS */
+#modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+#modalContent{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(14px);
+  border-radius:25px;
+  padding:25px;
+  max-width:90%;
+  text-align:center;
+  color:#fff;
+}
+
+#modalContent button{
+  margin-top:15px;
+  padding:8px 16px;
+  border:none;
+  border-radius:10px;
+  background:#355e3b;
+  color:white;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  border-top:1px solid #ccc;
+}
+
+nav a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  text-decoration:none;
+  color:#333;
+  font-size:12px;
+}
+
+footer{
+  background:#eae6dd;
+  padding:20px;
+  margin-top:20px;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+
+<section id="app">
+
+<header>Mercado de Artesanías de Somoto</header>
+
+<div class="hero">
+<h2>Descubre la cultura viva de Somoto</h2>
+<p id="saludo"></p>
+</div>
+
+<div class="section">
+
+<div class="infoGrid">
+
+<div class="infoCard historia" onclick="abrirInfo('historia')">
+<div class="icon">📜</div>
+<h4>Historia del Mercado</h4>
+</div>
+
+<div class="infoCard cultura" onclick="abrirInfo('cultura')">
+<div class="icon">🌾</div>
+<h4>Cultura Típica</h4>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h3>Lugares Culturales</h3>
+
+<div class="lugares">
+
+<div class="lugar" onclick="abrirLugar('canon')">
+Cañón de Somoto
+</div>
+
+<div class="lugar" onclick="abrirLugar('parque')">
+Parque Central
+</div>
+
+<div class="lugar" onclick="abrirLugar('iglesia')">
+Iglesia Santiago Apóstol
+</div>
+
+<div class="lugar" onclick="abrirLugar('museo')">
+Museos Locales
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h3>📸 Galería</h3>
+<div class="galeria">
+<img src="unnamed.webp" data-desc="Cerámica artesanal">
+<img src="original_somoto_arquitectura_2-600x400.jpg" data-desc="Textiles tradicionales">
+<img src="original_somoto_arquitectura-7-600x400.jpg" data-desc="Tallados en madera">
+<img src="img4.jpg" data-desc="Cuero hecho a mano">
+</div>
+</div>
+
+<footer>
+<strong>Mercado Artesanal Somoto</strong><br><br>
+Plataforma cultural digital para promover el turismo y la identidad local.
+</footer>
+
+<nav>
+<a href="#">🏠<br>Inicio</a>
+<a href="emprendedores.html">🏺<br>Negocios</a>
+<a href="#">🌄<br>Lugares</a>
+</nav>
+
+</section>
+
+<div id="modal">
+<div id="modalContent">
+<p id="modalDesc"></p>
+<button onclick="cerrarModal()">Cerrar</button>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function iniciarApp(){
+$("app").style.display="block";
+$("saludo").innerText="Hola, "+localStorage.getItem("usuario")+" 👋";
+}
+
+if(localStorage.getItem("sesion")){
+  setTimeout(iniciarApp, 300);
+} else {
+  iniciarApp();
+}
+
+
+function abrirInfo(tipo){
+$("modal").style.display="flex";
+
+if(tipo==="historia"){
+$("modalDesc").innerText=
+"El mercado artesanal de Somoto nació como un espacio para fortalecer la economía local y preservar las tradiciones culturales de Madriz. Aquí los emprendedores transforman técnicas ancestrales en arte vivo.";
+}
+
+if(tipo==="cultura"){
+$("modalDesc").innerText=
+"Incluye textiles hechos a mano, alfarería tradicional, productos de cuero artesanal y gastronomía típica como rosquillas y atol.";
+}
+}
+
+function cerrarModal(){
+$("modal").style.display="none";
+}
+
+$("modal").onclick=(e)=>{
+if(e.target.id==="modal"){
+cerrarModal();
+}
+};
+
+document.querySelectorAll(".galeria img").forEach(img=>{
+img.onclick=()=>{
+$("modal").style.display="flex";
+$("modalDesc").innerText=img.dataset.desc;
+};
+});
+
+function abrirLugar(tipo){
+
+$("modal").style.display="flex";
+
+if(tipo==="canon"){
+$("modalDesc").innerText=
+"Monumento nacional Cañón de Somoto localizado en el municipio de Somoto del departamento de Madriz, Nicaragua, es un área protegida y monumento nacional conforme a la Ley n.º 605, Ley que Declara Área Protegida en la Categoría de Monumento Nacional al Cañón de Somoto,[1]​ aprobada el 29 de noviembre de 2006 y publicada en La Gaceta n.º 240 del 12 de diciembre del mismo año. El Cañón de Somoto fue redescubierto en 2004 por geólogos checos durante una visita de investigación geológica. Ellos lo describieron como un impresionante accidente geográfico que era desconocido, hasta ese momento, por la comunidad científica mundial. Solamente era conocido por los pobladores de las comunidades ubicadas en sus bordes que lo conocen como Namancambre o La Estrechura.[2]​";
+}
+
+if(tipo==="parque"){
+$("modalDesc").innerText=
+"El Parque Central de Somoto es el corazón social de la ciudad. Es un punto de encuentro cultural, rodeado de comercios locales, gastronomía y eventos comunitarios.";
+}
+
+if(tipo==="iglesia"){
+$("modalDesc").innerText=
+"La Iglesia Santiago Apóstol es uno de los templos históricos más importantes de Somoto. Representa la fe y tradición religiosa del pueblo desde hace generaciones.";
+}
+
+if(tipo==="museo"){
+$("modalDesc").innerText=
+"Los museos locales resguardan piezas arqueológicas, historia colonial y objetos culturales que muestran la identidad y evolución histórica de la región de Madriz.";
+}
+
+}
+</script>
+
+</body>
+</html>

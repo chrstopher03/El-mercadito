@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Emprendedores</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#f3efe8;
+  padding-bottom:60px;
+}
+
+/* HEADER */
+header{
+  background:#355e3b;
+  color:#fff;
+  padding:14px;
+  text-align:center;
+  font-weight:500;
+}
+
+/* MAIN */
+main{
+  padding:16px;
+}
+
+/* GRID EN UNA SOLA COLUMNA */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:16px;
+  border-radius:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  text-align:center;
+}
+
+/* IMAGEN ARRIBA */
+.card img{
+  display:block;
+  margin:0 auto 10px auto;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+/* NOMBRE */
+.card strong{
+  display:block;
+  margin-bottom:8px;
+}
+
+/* BOTÓN */
+.card button{
+  display:block;
+  margin:0 auto;
+  padding:8px 14px;
+  background:#355e3b;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-family:Poppins;
+  cursor:pointer;
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  border-top:1px solid #ccc;
+}
+
+nav a{
+  flex:1;
+  padding:10px;
+  text-align:center;
+  text-decoration:none;
+  color:#333;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Emprendedores</header>
+
+<main>
+  <div class="grid">
+
+    <div class="card">
+      <img src="12.jpeg" alt="Creaciones Mary">
+      <strong>Creaciones Mary</strong>
+      <button onclick="location.href='abuela.html'">Ver negocio</button>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/150" alt="Textiles El Morrito">
+      <strong>Textiles El Morrito</strong>
+      <button onclick="location.href='emprendedores/textiles-morrito.html'">Ver negocio</button>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/150" alt="Cerámica de Somoto">
+      <strong>Cerámica de Somoto</strong>
+      <button onclick="location.href='emprendedores/ceramica-somoto.html'">Ver negocio</button>
+    </div>
+
+  </div>
+</main>
+
+<nav>
+  <a href="index.html">🏠<br>Inicio</a>
+  <a href="emprendedores.html">🧵<br>Emprendedores</a>
+  <a href="mapa.html">🗺️<br>Mapa</a>
+</nav>
+
+</body>
+</html>

@@ -4,345 +4,485 @@
 <meta charset="UTF-8">
 <title>Mercado Artesanías Somoto</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="13.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Poppins,sans-serif;
-}
-
-body{
-  background:#e7f4ff;
-  overflow-x:hidden;
-}
-
-/* ANIMACIONES */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
-}
-
-
-
-/* APP */
-#app{
-  display:none;
-  padding-bottom:80px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:#f4f7fb;}
 
 header{
   background:#355e3b;
   color:#fff;
-  padding:16px;
+  padding:18px;
   text-align:center;
   font-weight:600;
 }
 
-/* HERO */
 .hero{
-  background:linear-gradient(135deg, #444ae0, #4e75ff);
+  background:linear-gradient(135deg,#4e75ff,#444ae0);
   color:#fff;
   margin:16px;
   padding:25px;
   border-radius:25px;
+  text-align:center;
 }
 
-/* SECTION */
 .section{
   background:#fff;
   margin:16px;
-  padding:18px;
+  padding:20px;
   border-radius:20px;
-  box-shadow:0 6px 15px rgba(0,0,0,.05);
-  animation:fadeIn .5s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
 }
 
-/* GRID CULTURA */
-.infoGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:14px;
-}
-
-/* CARDS MODERNAS */
-.infoCard{
-  padding:28px 18px;
-  border-radius:20px;
-  text-align:center;
-  cursor:pointer;
+.btnPrincipal{
+  padding:12px 20px;
+  background:#355e3b;
   color:white;
-  transition:.35s;
-  position:relative;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.status{font-weight:bold;font-size:18px;}
+
+.progress{
+  width:100%;
+  background:#ddd;
+  border-radius:20px;
   overflow:hidden;
-}
-
-.infoCard.historia{
-  background:linear-gradient(135deg,#355e3b,#6b8e23);
-}
-
-.infoCard.cultura{
-  background:linear-gradient(135deg, #ff6f6f, #ff6565);
-}
-
-.infoCard:hover{
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
-
-.infoCard .icon{
-  font-size:28px;
-  margin-bottom:10px;
-}
-
-/* LUGARES */
-.lugares{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
   margin-top:10px;
 }
 
-.lugar{
-  background:#f3efe8;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-}
-
-/* GALERIA */
-.galeria{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:12px;
-}
-
-.galeria img{
-  width:100%;
-  border-radius:12px;
-  cursor:pointer;
-}
-
-/* MODAL GLASS */
-#modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-
-#modalContent{
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(14px);
-  border-radius:25px;
-  padding:25px;
-  max-width:90%;
-  text-align:center;
-  color:#fff;
-}
-
-#modalContent button{
-  margin-top:15px;
-  padding:8px 16px;
-  border:none;
-  border-radius:10px;
+.progress-bar{
+  height:12px;
+  width:0%;
   background:#355e3b;
-  color:white;
-}
-
-/* NAV */
-nav{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:#fff;
-  display:flex;
-  border-top:1px solid #ccc;
-}
-
-nav a{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  text-decoration:none;
-  color:#333;
-  font-size:12px;
+  transition:width 1s ease;
 }
 
 footer{
-  background:#eae6dd;
+  text-align:center;
   padding:20px;
-  margin-top:20px;
   font-size:14px;
+  color:#666;
+}
+
+/* MODAL APP STYLE */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(5px);
+  justify-content:center;
+  align-items:flex-end;
+  z-index:1000;
+}
+
+.modalContent{
+  background:rgba(255,255,255,.95);
+  width:100%;
+  max-height:90vh;
+  border-top-left-radius:25px;
+  border-top-right-radius:25px;
+  padding:20px;
+  overflow-y:auto;
+  animation:slideUp .35s ease;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+/* ====== BARRA INFERIOR FIJA ABAJO ====== */
+
+.bottomNav{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -4px 15px rgba(0,0,0,.08);
+  z-index: 999;
+}
+
+.bottomNav a{
+  text-decoration: none;
+  color: inherit;
+  flex:1;
+  text-align:center;
+}
+
+.navItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #888;
+  transition: .3s;
+  position:relative;
+}
+
+.icon{
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  margin-bottom:4px;
+}
+
+/* ACTIVO */
+.navItem.active{
+  color: #355e3b;
+  font-weight:600;
+}
+
+.navItem.active::before{
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:30px;
+  height:4px;
+  background:#355e3b;
+  border-radius:10px;
+}
+
+/* EFECTO TOQUE */
+.navItem:active{
+  transform: scale(.85);
+}
+
+
+.modalHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.cerrar{
+  font-size:20px;
+  cursor:pointer;
+}
+
+input,select{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  margin-top:10px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:15px;
+}
+
+.card{
+  background:#f8f8f8;
+  padding:14px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.foto{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:8px;
+}
+
+.nombre{
+  font-weight:600;
+  color:#355e3b;
+  font-size:14px;
+}
+
+.oferta{
+  font-size:12px;
+  color:#555;
+  margin-top:4px;
+}
+
+.whatsapp{
+  margin-top:8px;
+  display:inline-block;
+  padding:5px 10px;
+  background:#25D366;
+  color:#fff;
+  border-radius:8px;
+  font-size:11px;
+  text-decoration:none;
 }
 </style>
 </head>
 
 <body>
 
-
-<section id="app">
-
-<header>Mercado de Artesanías de Somoto</header>
+<header>Mercado Artesanías Somoto</header>
 
 <div class="hero">
-<h2>Descubre la cultura viva de Somoto</h2>
-<p id="saludo"></p>
+<h2>Impulsando la Economía Local</h2>
+<p id="estadoHorario"></p>
 </div>
 
 <div class="section">
-
-<div class="infoGrid">
-
-<div class="infoCard historia" onclick="abrirInfo('historia')">
-<div class="icon">📜</div>
-<h4>Historia del Mercado</h4>
-</div>
-
-<div class="infoCard cultura" onclick="abrirInfo('cultura')">
-<div class="icon">🌾</div>
-<h4>Cultura Típica</h4>
-</div>
-
-</div>
+<h3>⏰ Horario</h3>
+<p><strong>8:30 AM - 5:00 PM</strong></p>
+<p id="estado" class="status"></p>
 </div>
 
 <div class="section">
-<h3>Lugares Culturales</h3>
-
-<div class="lugares">
-
-<div class="lugar" onclick="abrirLugar('canon')">
-Cañón de Somoto
-</div>
-
-<div class="lugar" onclick="abrirLugar('parque')">
-Parque Central
-</div>
-
-<div class="lugar" onclick="abrirLugar('iglesia')">
-Iglesia Santiago Apóstol
-</div>
-
-<div class="lugar" onclick="abrirLugar('museo')">
-Museos Locales
-</div>
-
+<h3>📊 Ocupación</h3>
+<p id="ocupacionTexto"></p>
+<div class="progress">
+<div class="progress-bar" id="barraOcupacion"></div>
 </div>
 </div>
 
-<div class="section">
-<h3>📸 Galería</h3>
-<div class="galeria">
-<img src="unnamed.webp" data-desc="Cerámica artesanal">
-<img src="original_somoto_arquitectura_2-600x400.jpg" data-desc="Textiles tradicionales">
-<img src="original_somoto_arquitectura-7-600x400.jpg" data-desc="Tallados en madera">
-<img src="img4.jpg" data-desc="Cuero hecho a mano">
-</div>
+<div class="section" style="text-align:center;">
+<h3>🛍️ Emprendedores</h3>
+<button class="btnPrincipal" onclick="abrirModal()">Ver Emprendedores</button>
 </div>
 
 <footer>
-<strong>Mercado Artesanal Somoto</strong><br><br>
-Plataforma cultural digital para promover el turismo y la identidad local.
+Plataforma digital cultural – Somoto, Madriz – Nicaragua
 </footer>
 
-<nav>
-<a href="#">🏠<br>Inicio</a>
-<a href="emprendedores.html">🏺<br>Negocios</a>
-<a href="#">🌄<br>Lugares</a>
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modalContent">
+    <div class="modalHeader">
+      <h3>Emprendedores</h3>
+      <span class="cerrar" onclick="cerrarModal()">✖</span>
+    </div>
+
+    <input type="text" id="buscador" placeholder="Buscar...">
+    <select id="filtro">
+      <option value="todos">Todas las categorías</option>
+      <option value="Textiles">Textiles</option>
+      <option value="Gastronomía">Gastronomía</option>
+      <option value="Cerámica">Cerámica</option>
+      <option value="Cuero">Cuero</option>
+    </select>
+
+    <div id="lista" class="grid"></div>
+
+  </div>
+</div>
+<!-- BARRA INFERIOR -->
+<nav class="bottomNav">
+
+  <a href="index.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M3 12l9-9 9 9v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/>
+    </svg>
+    <small>Inicio</small>
+  </a>
+
+  <a href="emprendedores.html" class="navItem active">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M6 2l3 6h6l3-6H6zm-3 8h18l-1.5 10a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2L3 10z"/>
+    </svg>
+    <small>Emprendedores</small>
+  </a>
+
+  <a href="mapa.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M12 2l7 4v16l-7-4-7 4V6z"/>
+    </svg>
+    <small>Mapa</small>
+  </a>
+
 </nav>
+<script>/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+const TOTAL_LOCALES = 16;
+const LOCALES_OCUPADOS = 14; // ← Ocupados reales
 
-</section>
+const emprendedores = [
+{nombre:"YOLUVAMI",ofrece:"Lubricantes y aceites",categoria:"Lubricantes",telefono:"50588880001",foto:"23.jpeg"},
+{nombre:"Creaciones Mary",ofrece:"Todo tipo de artesanía",categoria:"Artesanía",telefono:"50585163627",foto:"12.jpeg"},
+{nombre:"Álvarito Valladarez",ofrece:"Productos de cuero",categoria:"Cuero",telefono:"50588880003",foto:"https://i.pravatar.cc/100?img=3"},
+{nombre:"Creaciones la Moda",ofrece:"Rosquillas tradicionales",categoria:"Gastronomía",telefono:"50588880004",foto:"https://i.pravatar.cc/100?img=4"},
+{nombre:"Alfarería Sánchez",ofrece:"Cerámica artesanal",categoria:"Cerámica",telefono:"50588880005",foto:"https://i.pravatar.cc/100?img=5"},
+{nombre:"Bordados Anita",ofrece:"Ropa bordada",categoria:"Textiles",telefono:"50588880006",foto:"https://i.pravatar.cc/100?img=6"}
+];
 
-<div id="modal">
-<div id="modalContent">
-<p id="modalDesc"></p>
-<button onclick="cerrarModal()">Cerrar</button>
-</div>
-</div>
-
-<script>
 const $ = id => document.getElementById(id);
 
-function iniciarApp(){
-$("app").style.display="block";
-$("saludo").innerText="Hola, "+localStorage.getItem("usuario")+" 👋";
+/* =========================
+   GENERAR CATEGORÍAS
+========================= */
+function generarCategorias(){
+  const categoriasUnicas = [...new Set(emprendedores.map(e => e.categoria))];
+
+  const select = $("filtro");
+  select.innerHTML = `<option value="todos">Todas las categorías</option>`;
+
+  categoriasUnicas.forEach(cat=>{
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    select.appendChild(option);
+  });
 }
 
-if(localStorage.getItem("sesion")){
-  setTimeout(iniciarApp, 300);
-} else {
-  iniciarApp();
-}
-
-
-function abrirInfo(tipo){
-$("modal").style.display="flex";
-
-if(tipo==="historia"){
-$("modalDesc").innerText=
-"El mercado artesanal de Somoto nació como un espacio para fortalecer la economía local y preservar las tradiciones culturales de Madriz. Aquí los emprendedores transforman técnicas ancestrales en arte vivo.";
-}
-
-if(tipo==="cultura"){
-$("modalDesc").innerText=
-"Incluye textiles hechos a mano, alfarería tradicional, productos de cuero artesanal y gastronomía típica como rosquillas y atol.";
-}
+/* =========================
+   MODAL
+========================= */
+function abrirModal(){
+  $("modal").style.display="flex";
+  mostrar();
 }
 
 function cerrarModal(){
-$("modal").style.display="none";
+  $("modal").style.display="none";
 }
 
-$("modal").onclick=(e)=>{
-if(e.target.id==="modal"){
-cerrarModal();
-}
-};
-
-document.querySelectorAll(".galeria img").forEach(img=>{
-img.onclick=()=>{
-$("modal").style.display="flex";
-$("modalDesc").innerText=img.dataset.desc;
-};
+$("modal").addEventListener("click",e=>{
+  if(e.target.id==="modal") cerrarModal();
 });
 
-function abrirLugar(tipo){
+/* =========================
+   MOSTRAR EMPRENDEDORES
+========================= */
+function mostrar(){
+  const texto = $("buscador").value.toLowerCase().trim();
+  const filtro = $("filtro").value;
 
-$("modal").style.display="flex";
+  $("lista").innerHTML="";
 
-if(tipo==="canon"){
-$("modalDesc").innerText=
-"Monumento nacional Cañón de Somoto localizado en el municipio de Somoto del departamento de Madriz, Nicaragua, es un área protegida y monumento nacional conforme a la Ley n.º 605, Ley que Declara Área Protegida en la Categoría de Monumento Nacional al Cañón de Somoto,[1]​ aprobada el 29 de noviembre de 2006 y publicada en La Gaceta n.º 240 del 12 de diciembre del mismo año. El Cañón de Somoto fue redescubierto en 2004 por geólogos checos durante una visita de investigación geológica. Ellos lo describieron como un impresionante accidente geográfico que era desconocido, hasta ese momento, por la comunidad científica mundial. Solamente era conocido por los pobladores de las comunidades ubicadas en sus bordes que lo conocen como Namancambre o La Estrechura.[2]​";
+  const filtrados = emprendedores.filter(e => {
+    const coincideTexto =
+      e.nombre.toLowerCase().includes(texto) ||
+      e.ofrece.toLowerCase().includes(texto);
+
+    const coincideCategoria =
+      filtro === "todos" || e.categoria === filtro;
+
+    return coincideTexto && coincideCategoria;
+  });
+
+  if(filtrados.length === 0){
+    $("lista").innerHTML =
+      "<p style='text-align:center;'>No se encontraron resultados</p>";
+    return;
+  }
+
+  filtrados.forEach(emp=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`
+      <img src="${emp.foto}" class="foto">
+      <div class="nombre">${emp.nombre}</div>
+      <div class="oferta">${emp.ofrece}</div>
+      <div class="categoria">${emp.categoria}</div>
+      <a class="whatsapp" target="_blank"
+      href="https://wa.me/${emp.telefono}">
+      WhatsApp
+      </a>
+    `;
+    $("lista").appendChild(div);
+  });
 }
 
-if(tipo==="parque"){
-$("modalDesc").innerText=
-"El Parque Central de Somoto es el corazón social de la ciudad. Es un punto de encuentro cultural, rodeado de comercios locales, gastronomía y eventos comunitarios.";
+/* =========================
+   OCUPACIÓN
+========================= */
+function actualizarOcupacion(){
+
+  const disponibles = TOTAL_LOCALES - LOCALES_OCUPADOS;
+  const porcentaje = Math.round((LOCALES_OCUPADOS / TOTAL_LOCALES) * 100);
+
+  $("ocupacionTexto").innerText =
+    LOCALES_OCUPADOS + " de " +
+    TOTAL_LOCALES +
+    " locales ocupados (" +
+    porcentaje + "%)";
+
+  if($("disponiblesTexto")){
+    $("disponiblesTexto").innerText =
+      disponibles + " locales disponibles";
+  }
+
+  $("barraOcupacion").style.transition = "width 0.8s ease";
+  $("barraOcupacion").style.width = porcentaje + "%";
+
+  if(porcentaje >= 90){
+    $("barraOcupacion").style.background = "#d32f2f";
+  } else if(porcentaje >= 70){
+    $("barraOcupacion").style.background = "#f9a825";
+  } else {
+    $("barraOcupacion").style.background = "#355e3b";
+  }
 }
 
-if(tipo==="iglesia"){
-$("modalDesc").innerText=
-"La Iglesia Santiago Apóstol es uno de los templos históricos más importantes de Somoto. Representa la fe y tradición religiosa del pueblo desde hace generaciones.";
+/* =========================
+   HORARIO
+========================= */
+function verificarHorario(){
+
+  const ahora = new Date();
+  const horaActual = ahora.getHours();
+  const minutosActual = ahora.getMinutes();
+  const totalMin = horaActual * 60 + minutosActual;
+
+  const apertura = 8 * 60 + 30; // 8:30 AM
+  const cierre = 17 * 60;       // 5:00 PM
+
+  const horaFormateada =
+    ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+  if(totalMin >= apertura && totalMin < cierre){
+
+    $("estado").innerHTML = "🟢 ABIERTO";
+    $("estado").style.color = "#2e7d32";
+
+    $("estadoHorario").innerHTML =
+      "Abierto ahora • Hora actual: " + horaFormateada;
+
+  } else {
+
+    $("estado").innerHTML = "🔴 CERRADO";
+    $("estado").style.color = "#c62828";
+
+    $("estadoHorario").innerHTML =
+      "Cerrado ahora • Hora actual: " + horaFormateada +
+      "<br>Horario: 8:30 AM - 5:00 PM";
+  }
 }
 
-if(tipo==="museo"){
-$("modalDesc").innerText=
-"Los museos locales resguardan piezas arqueológicas, historia colonial y objetos culturales que muestran la identidad y evolución histórica de la región de Madriz.";
-}
+/* =========================
+   EVENTOS
+========================= */
+$("buscador").addEventListener("input",mostrar);
+$("filtro").addEventListener("change",mostrar);
 
-}
+/* =========================
+   INICIALIZAR
+========================= */
+generarCategorias();
+mostrar();
+actualizarOcupacion();
+verificarHorario();
+setInterval(verificarHorario, 60000);
 </script>
 
 </body>

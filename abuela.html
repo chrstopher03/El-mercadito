@@ -4,15 +4,20 @@
 <meta charset="UTF-8">
 <title>Creaciones Mary</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="12.jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
---primary:#355e3b;
---bg:#f5f3ef;
---card:#ffffff;
---text:#333;
+--primary:#1e3a8a;
+--bg:#f5f6fa;
+--text:#222;
+}
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
@@ -20,15 +25,15 @@ margin:0;
 font-family:'Poppins',sans-serif;
 background:var(--bg);
 color:var(--text);
-padding-bottom:100px;
+padding-bottom:120px;
 }
 
 /* HEADER */
 header{
 display:flex;
-align-items:center;
 justify-content:space-between;
-padding:15px 20px;
+align-items:center;
+padding:14px 16px;
 background:#fff;
 box-shadow:0 2px 10px rgba(0,0,0,.05);
 position:sticky;
@@ -36,247 +41,511 @@ top:0;
 z-index:100;
 }
 
-header h1{
-font-size:16px;
+header h3{
 margin:0;
+font-size:15px;
+font-weight:600;
 }
 
-.backBtn{
-text-decoration:none;
-color:var(--primary);
+.status{
+font-size:13px;
 font-weight:600;
-font-size:14px;
+padding:6px 12px;
+border-radius:20px;
+transition:.3s;
+}
+
+.abierto{
+color:#065f46;
+background:#d1fae5;
+}
+
+.cerrado{
+color:#7f1d1d;
+background:#fee2e2;
 }
 
 /* HERO */
 .hero{
 text-align:center;
 padding:30px 20px;
-background:linear-gradient(180deg,#355e3b 0%, #2c4d30 100%);
+background:linear-gradient(180deg,#1e3a8a,#14285f);
 color:#fff;
 border-radius:0 0 30px 30px;
 }
 
 .hero img{
-width:130px;
-height:130px;
+width:110px;
+height:110px;
 border-radius:50%;
 object-fit:cover;
-border:5px solid #fff;
+border:4px solid #fff;
 margin-bottom:12px;
 }
 
-.hero h2{margin:8px 0 5px 0;font-weight:600;}
-.hero p{font-size:13px;opacity:.9;margin:3px 0;}
+.hero h2{margin:6px 0 4px;font-size:18px;}
+.hero p{font-size:12px;margin:3px 0;opacity:.9;}
 
 .infoBtn{
-margin-top:15px;
-padding:8px 16px;
+margin-top:12px;
+padding:9px 18px;
 border:none;
+border-radius:25px;
 background:#fff;
 color:var(--primary);
-border-radius:20px;
 font-weight:600;
+font-size:13px;
 cursor:pointer;
 }
 
-/* PRODUCTOS */
-.section{padding:25px 20px;}
-.section h3{margin-bottom:18px;font-size:16px;}
+/* FILTROS */
+.filtros{
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
 
+.filtros select,
+.filtros input{
+padding:10px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:14px;
+background:#fff;
+}
+
+/* PRODUCTOS */
 .product-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:18px;
+grid-template-columns:1fr 1fr;
+gap:12px;
+padding:15px;
 }
 
 .product{
-background:var(--card);
-border-radius:18px;
+background:#ffffff;
+border-radius:16px;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
 overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,.06);
 display:flex;
 flex-direction:column;
-transition:.3s;
 }
-
-.product:hover{transform:translateY(-6px);}
 
 .product img{
 width:100%;
-height:170px;
-object-fit:cover;
+aspect-ratio:1/1;
+object-fit:contain;
+background:#ffffff;
+cursor:pointer;
 }
 
 .product-body{
-padding:15px;
-flex:1;
+padding:10px;
 display:flex;
 flex-direction:column;
+flex:1;
+}
+
+.product h4{
+font-size:13px;
+margin:0;
+font-weight:500;
 }
 
 .price{
-color:var(--primary);
+font-size:14px;
 font-weight:600;
-margin-bottom:10px;
-}
-
-.qty{
-width:60px;
-padding:5px;
-border-radius:8px;
-border:1px solid #ccc;
-margin-bottom:10px;
+color:var(--primary);
+margin:6px 0;
 }
 
 .product button{
 margin-top:auto;
-padding:10px;
-background:var(--primary);
-color:#fff;
+padding:9px;
 border:none;
 border-radius:10px;
+background:var(--primary);
+color:#fff;
+font-size:13px;
 cursor:pointer;
 }
 
-/* BOTON CARRITO */
+/* CARRITO */
 #cartBtn{
 position:fixed;
-right:20px;
-bottom:20px;
+right:18px;
+bottom:110px;
 background:var(--primary);
 color:#fff;
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:26px;
+font-size:22px;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
+z-index:1500;
 cursor:pointer;
 }
 
 #cartCount{
 position:absolute;
-top:-5px;
-right:-5px;
-background:red;
-width:22px;
-height:22px;
+top:-4px;
+right:-4px;
+background:#dc2626;
+width:20px;
+height:20px;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:12px;
+font-size:11px;
 }
 
-/* MODAL GENERAL */
+/* MODALES */
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.5);
+background:rgba(0,0,0,.6);
 display:none;
 justify-content:center;
 align-items:center;
-z-index:200;
+padding:20px;
+z-index:3000;
 }
 
 .modalContent{
 background:#fff;
-width:90%;
-max-width:400px;
+width:100%;
+max-width:480px;
+max-height:90vh;
 border-radius:20px;
-padding:20px;
-animation:fadeIn .3s ease;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+animation:scaleIn .25s ease;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:scale(.9)}
-to{opacity:1;transform:scale(1)}
+@keyframes scaleIn{
+from{transform:scale(.9);opacity:0;}
+to{transform:scale(1);opacity:1;}
 }
 
-.modalContent h3{
-margin-top:0;
+.modalContent img{
+width:100%;
+max-height:300px;
+object-fit:contain;
+background:#ffffff;
 }
 
-.closeBtn{
-margin-top:15px;
-padding:10px;
+.modalBody{
+padding:18px;
+overflow-y:auto;
+flex:1;
+}
+
+.bottomNav{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -4px 15px rgba(0,0,0,.08);
+  z-index: 999;
+}
+
+.bottomNav a{
+  text-decoration: none;
+  color: inherit;
+  flex:1;
+  text-align:center;
+}
+
+.navItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #888;
+  transition: .3s;
+  position:relative;
+}
+
+.icon{
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  margin-bottom:4px;
+}
+.modalBtn{
+margin-top:12px;
+padding:12px;
+border:none;
+border-radius:12px;
 background:var(--primary);
 color:#fff;
-border:none;
-border-radius:10px;
 width:100%;
+font-weight:600;
 cursor:pointer;
 }
 
+/* INFO MODAL */
+.infoHeader{
+background:linear-gradient(180deg,#1e3a8a,#14285f);
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+.infoHeader h3{margin:0;font-size:18px;}
+.infoHeader p{margin:5px 0 0;font-size:13px;opacity:.9;}
+
+.infoItem{
+margin-bottom:15px;
+display:flex;
+flex-direction:column;
+font-size:14px;
+}
+
+.infoItem strong{
+color:#1e3a8a;
+margin-bottom:3px;
+}
+
+.infoDescripcion{
+background:#f3f4f6;
+padding:15px;
+border-radius:12px;
+font-size:13px;
+margin-top:10px;
+line-height:1.5;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<a href="emprendedores.html" class="backBtn">← Volver</a>
-<h1>Creaciones Mary</h1>
-<div></div>
+<div id="status" class="status"></div>
 </header>
 
 <div class="hero">
 <img src="12.jpeg">
 <h2>Creaciones Mary</h2>
 <p>Somoto · Madriz · Nicaragua 🇳🇮</p>
-<p>Hamacas · Bolsos · Tejidos</p>
+<p>Artesanias · Bolsos · llaveros</p>
 <button class="infoBtn" onclick="openInfo()">Ver Información</button>
 </div>
 
-<div class="section">
-<h3>Productos</h3>
-<div class="product-grid">
+<div class="filtros">
+<select id="categoriaFiltro">
+<option value="todos">Todas</option>
+<option value="camisas">Camisas</option>
+<option value="llaveros">llaveros</option>
+<option value="bolsos">Bolsos</option>
+</select>
 
-<div class="product">
-<img src="17.jpeg">
-<div class="product-body">
-<h4>Hamaca artesanal</h4>
-<div class="price">$40</div>
-<input type="number" value="1" min="1" class="qty" id="q1">
-<button onclick="addToCart('Hamaca artesanal',40,'q1')">Agregar</button>
-</div>
+<input type="number" id="precioMin" placeholder="Precio mínimo">
+<input type="number" id="precioMax" placeholder="Precio máximo">
 </div>
 
-<div class="product">
-<img src="https://via.placeholder.com/400x300">
-<div class="product-body">
-<h4>Bolso tejido</h4>
-<div class="price">$25</div>
-<input type="number" value="1" min="1" class="qty" id="q2">
-<button onclick="addToCart('Bolso tejido',25,'q2')">Agregar</button>
+<div class="product-grid" id="productGrid"></div>
+
+<div id="cartBtn">🛒<div id="cartCount">0</div></div>
+
+<!-- MODAL PRODUCTO -->
+<div class="modal" id="productModal">
+<div class="modalContent">
+<img id="modalImg">
+<div class="modalBody">
+<h3 id="modalTitle"></h3>
+<div id="modalPrice" class="price"></div>
+<p id="modalDesc"></p>
+<button class="modalBtn" onclick="agregarDesdeModal()">Agregar al carrito</button>
+<button class="modalBtn" onclick="closeProduct()">Cerrar</button>
+</div>
 </div>
 </div>
 
-</div>
-</div>
-
-<!-- MODAL INFORMACION -->
+<!-- MODAL INFO -->
 <div class="modal" id="infoModal">
 <div class="modalContent">
-<h3>Información del Negocio</h3>
-<p><b>Propietaria:</b> María Sánchez</p>
-<p><b>Horario:</b> Lunes a Sábado<br>8:00 AM – 5:00 PM</p>
-<p><b>Historia:</b> Emprendimiento familiar que preserva la tradición artesanal.</p>
-<button class="closeBtn" onclick="closeInfo()">Cerrar</button>
+<div class="infoHeader">
+<h3>Creaciones Mary</h3>
+<p>Información del Negocio</p>
+</div>
+<div class="modalBody">
+<div class="infoItem">
+<strong>👤 Propietaria:</strong>
+<span>Maria Cleofe Ramirez</span>
+</div>
+<div class="infoItem">
+<strong>📍 Ubicación:</strong>
+<span>Somoto, Madriz, Nicaragua 🇳🇮</span>
+</div>
+<div class="infoItem">
+<strong>🕒 Horario:</strong>
+<span>8:30 AM - 4:00 PM</span>
+</div>
+<div class="infoDescripcion">
+Especialista en productos tipicos Nicaraguenses.
+</div>
+<button class="modalBtn" onclick="closeInfo()">Cerrar</button>
+</div>
 </div>
 </div>
 
+<!-- BARRA INFERIOR -->
+<nav class="bottomNav">
+
+  <a href="index.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M3 12l9-9 9 9v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/>
+    </svg>
+    <small>Inicio</small>
+  </a>
+
+  <a href="emprendedores.html" class="navItem active">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M6 2l3 6h6l3-6H6zm-3 8h18l-1.5 10a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2L3 10z"/>
+    </svg>
+    <small>Emprendedores</small>
+  </a>
+
+  <a href="historia.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M12 2l7 4v16l-7-4-7 4V6z"/>
+    </svg>
+    <small>Historia</small>
+  </a>
+
+</nav>
 <script>
 
-function openInfo(){
-document.getElementById("infoModal").style.display="flex";
+const productos=[
+{name:"Tequileros de Madera",price:90,cat:"motor",img:"45.jpeg",desc:""},
+{name:"Aceite 5W30",price:30,cat:"motor",img:"https://via.placeholder.com/400x400"},
+{name:"Grasa Industrial",price:15,cat:"grasas",img:"https://via.placeholder.com/400x400"},
+{name:"Hidráulico 68",price:40,cat:"industrial",img:"https://via.placeholder.com/400x400"}
+];
+
+let cart=[];
+let productoActual=null;
+
+function mostrarProductos(){
+let cat=categoriaFiltro.value;
+let min=precioMin.value;
+let max=precioMax.value;
+productGrid.innerHTML="";
+productos.filter(p=>
+(cat==="todos"||p.cat===cat)&&
+(!min||p.price>=min)&&
+(!max||p.price<=max)
+).forEach((p,index)=>{
+productGrid.innerHTML+=`
+<div class="product">
+<img src="${p.img}" data-id="${index}">
+<div class="product-body">
+<h4>${p.name}</h4>
+<div class="price">C$${p.price}</div>
+<button onclick="addToCart(${index})">Agregar</button>
+</div>
+</div>`;
+});
+document.querySelectorAll(".product img").forEach(img=>{
+img.addEventListener("click",function(){
+productoActual=productos[this.dataset.id];
+verProducto(productoActual);
+});
+});
 }
 
-function closeInfo(){
-document.getElementById("infoModal").style.display="none";
+function verProducto(p){
+modalTitle.innerText=p.name;
+modalDesc.innerText=p.desc||"Sin descripción.";
+modalPrice.innerText="C$"+p.price;
+modalImg.src=p.img;
+productModal.style.display="flex";
 }
+
+function closeProduct(){productModal.style.display="none";}
+function openInfo(){infoModal.style.display="flex";}
+function closeInfo(){infoModal.style.display="none";}
+
+function agregarDesdeModal(){
+if(productoActual){
+cart.push(productoActual);
+cartCount.innerText=cart.length;
+closeProduct();
+}
+}
+
+function addToCart(index){
+cart.push(productos[index]);
+cartCount.innerText=cart.length;
+}
+
+/* ===============================
+   HORARIO AUTOMÁTICO NICARAGUA
+================================ */
+
+const statusElement = document.getElementById("status");
+
+function actualizarEstado(){
+
+const ahora = new Date();
+const opciones = { timeZone: 'America/Managua', hour12: false };
+const horaNica = new Date(ahora.toLocaleString('en-US', opciones));
+
+const hora = horaNica.getHours();
+const minutos = horaNica.getMinutes();
+const totalMinutos = hora * 60 + minutos;
+
+const apertura = 8 * 60 + 30; // 8:30 AM
+const cierre = 16 * 60;       // 4:00 PM
+
+if(totalMinutos >= apertura && totalMinutos < cierre){
+
+const faltan = cierre - totalMinutos;
+const h = Math.floor(faltan / 60);
+const m = faltan % 60;
+
+statusElement.innerHTML = `🟢 Abierto · Cierra en ${h}h ${m}m`;
+statusElement.className = "status abierto";
+
+}else{
+
+let faltan;
+
+if(totalMinutos < apertura){
+faltan = apertura - totalMinutos;
+}else{
+faltan = (24 * 60 - totalMinutos) + apertura;
+}
+
+const h = Math.floor(faltan / 60);
+const m = faltan % 60;
+
+statusElement.innerHTML = `🔴 Cerrado · Abre en ${h}h ${m}m`;
+statusElement.className = "status cerrado";
+}
+}
+
+setInterval(actualizarEstado,60000);
+actualizarEstado();
+
+categoriaFiltro.addEventListener("change",mostrarProductos);
+precioMin.addEventListener("input",mostrarProductos);
+precioMax.addEventListener("input",mostrarProductos);
+
+mostrarProductos();
 
 </script>
 

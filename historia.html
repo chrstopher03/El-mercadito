@@ -2,137 +2,149 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mercado Artesanías Somoto</title>
+<title>Historia del Mercado Artesanías Somoto</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="13.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Poppins,sans-serif;
-}
-
-body{
-  background:#e7f4ff;
-  overflow-x:hidden;
-}
-
-/* ANIMACIONES */
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeOut{
-  to{opacity:0;visibility:hidden}
-}
-
-
-
-/* APP */
-#app{
-  display:none;
-  padding-bottom:80px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;}
+body{background:#f4f7fb;}
 
 header{
   background:#355e3b;
   color:#fff;
-  padding:16px;
+  padding:18px;
   text-align:center;
   font-weight:600;
 }
 
-/* HERO */
 .hero{
-  background:linear-gradient(135deg, #444ae0, #4e75ff);
-  color:#fff;
-  margin:16px;
-  padding:25px;
-  border-radius:25px;
+  background: url('31.jpeg') no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  margin: 16px;
+  padding: 25px;
+  border-radius: 25px;
+  text-align: center;
 }
 
-/* SECTION */
 .section{
   background:#fff;
   margin:16px;
-  padding:18px;
+  padding:20px;
   border-radius:20px;
-  box-shadow:0 6px 15px rgba(0,0,0,.05);
-  animation:fadeIn .5s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
 }
 
-/* GRID CULTURA */
-.infoGrid{
+.grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
-  margin-top:14px;
+  margin-top:15px;
 }
 
-/* CARDS MODERNAS */
-.infoCard{
-  padding:28px 18px;
-  border-radius:20px;
+.card{
+  background:#f8f8f8;
+  padding:14px;
+  border-radius:16px;
   text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  transition:.3s;
   cursor:pointer;
-  color:white;
-  transition:.35s;
-  position:relative;
-  overflow:hidden;
 }
 
-.infoCard.historia{
-  background:linear-gradient(135deg,#355e3b,#6b8e23);
+.descripcion{
+  font-size:13px;
+  color:#555;
+  margin-top:4px;
 }
 
-.infoCard.cultura{
-  background:linear-gradient(135deg, #ff6f6f, #ff6565);
+.card:hover{
+  transform:translateY(-4px);
 }
 
-.infoCard:hover{
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
-
-.infoCard .icon{
-  font-size:28px;
-  margin-bottom:10px;
-}
-
-/* LUGARES */
-.lugares{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:10px;
-}
-
-.lugar{
-  background:#f3efe8;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-}
-
-/* GALERIA */
-.galeria{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:12px;
-}
-
-.galeria img{
+.foto{
   width:100%;
+  height:150px;
   border-radius:12px;
-  cursor:pointer;
+  object-fit:cover;
+  margin-bottom:8px;
 }
 
-/* MODAL GLASS */
-#modal{
+.nombre{
+  font-weight:600;
+  color:#355e3b;
+  font-size:14px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:14px;
+  color:#666;
+}
+
+/* BARRA INFERIOR */
+.bottomNav{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -4px 15px rgba(0,0,0,.08);
+  z-index: 999;
+}
+
+.bottomNav a{
+  text-decoration: none;
+  color: inherit;
+  flex:1;
+  text-align:center;
+}
+
+.navItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #888;
+  transition: .3s;
+  position:relative;
+}
+
+.icon{
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  margin-bottom:4px;
+}
+
+.navItem.active{
+  color: #355e3b;
+  font-weight:600;
+}
+
+.navItem.active::before{
+  content:"";
+  position:absolute;
+  top:-8px;
+  width:30px;
+  height:4px;
+  background:#355e3b;
+  border-radius:10px;
+}
+
+.navItem:active{
+  transform: scale(.85);
+}
+
+/* MODAL DE IMAGEN */
+.modal{
   display:none;
   position:fixed;
   inset:0;
@@ -142,207 +154,194 @@ header{
   z-index:1000;
 }
 
-#modalContent{
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(14px);
-  border-radius:25px;
-  padding:25px;
-  max-width:90%;
-  text-align:center;
-  color:#fff;
-}
-
-#modalContent button{
-  margin-top:15px;
-  padding:8px 16px;
-  border:none;
-  border-radius:10px;
-  background:#355e3b;
-  color:white;
-}
-
-/* NAV */
-nav{
-  position:fixed;
-  bottom:0;
-  width:100%;
+.modalContent{
   background:#fff;
-  display:flex;
-  border-top:1px solid #ccc;
-}
-
-nav a{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  text-decoration:none;
-  color:#333;
-  font-size:12px;
-}
-
-footer{
-  background:#eae6dd;
+  border-radius:15px;
+  max-width:90%;
+  max-height:90%;
+  overflow-y:auto;
   padding:20px;
-  margin-top:20px;
+  text-align:center;
+  animation:fadeIn .3s ease;
+}
+
+.modalContent img{
+  width:100%;
+  max-height:400px;
+  border-radius:12px;
+  object-fit:cover;
+}
+
+.modalContent h3{
+  margin-top:15px;
+  color:#355e3b;
+}
+
+.modalContent p{
+  margin-top:10px;
   font-size:14px;
+  color:#555;
+}
+
+.modalContent button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:12px;
+  background:#355e3b;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* RESPONSIVO */
+@media(min-width: 768px){ 
+  .hero{
+    margin: 40px auto;
+    padding: 60px;
+    border-radius: 30px;
+    max-width: 1000px;
+  }
+  .section{
+    margin: 20px auto;
+    padding: 30px;
+    max-width: 1000px;
+    border-radius: 25px;
+  }
+  .grid{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media(min-width: 1200px){
+  .grid{
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .hero{
+    max-width: 1200px;
+  }
+  .section{
+    max-width: 1200px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-
-<section id="app">
-
-<header>Mercado de Artesanías de Somoto</header>
+<header>Historia & Turismo – Somoto</header>
 
 <div class="hero">
-<h2>Descubre la cultura viva de Somoto</h2>
-<p id="saludo"></p>
+<h2>Descubre la Historia y Belleza de Somoto, Madriz</h2>
+<p>Un recorrido cultural por el Mercado de Artesanías y los lugares turísticos</p>
 </div>
 
 <div class="section">
-
-<div class="infoGrid">
-
-<div class="infoCard historia" onclick="abrirInfo('historia')">
-<div class="icon">📜</div>
-<h4>Historia del Mercado</h4>
-</div>
-
-<div class="infoCard cultura" onclick="abrirInfo('cultura')">
-<div class="icon">🌾</div>
-<h4>Cultura Típica</h4>
-</div>
-
-</div>
+<h3>🏛️ Historia del Mercado de Artesanías - Yelba Rueda</h3>
+<p class="descripcion">
+El mercado de artesanías de Somoto fue inaugurado el 30/01/2016 con el objetivo de promover a los artesanos locales y la venta de sus productos.<br><br>
+Gracias al Ministerio de Economía Familiar Comunitaria Cooperativa y Asociativa (MEFCCA), muchos de los artesanos y comerciantes locales han podido optar a programas de formación en los que han aprendido y mejorado en la realización de sus productos.
+</p>
 </div>
 
 <div class="section">
-<h3>Lugares Culturales</h3>
+<h3>🌄 Centros Turísticos de Somoto</h3>
+<p>Haz click en la imagen para ver más información</p>
 
-<div class="lugares">
+<div class="grid" id="galeria">
+  <div class="card" data-nombre="Cañón de Somoto" data-desc="Formación natural impresionante ideal para senderismo y excursiones." data-img="unnamed.webp">
+    <img src="unnamed.webp" class="foto" alt="Cañón de Somoto">
+    <div class="nombre">Cañón de Somoto</div>
+  </div>
 
-<div class="lugar" onclick="abrirLugar('canon')">
-Cañón de Somoto
+  <div class="card" data-nombre="Plaza Central" data-desc="Centro histórico de la ciudad con arquitectura colonial y vida local." data-img="36.jpg">
+    <img src="36.jpg" class="foto" alt="Plaza Central de Somoto">
+    <div class="nombre">Plaza Central</div>
+  </div>
+
+  <div class="card" data-nombre="Río Somoto" data-desc="Un lugar perfecto para relajarse y disfrutar de la naturaleza." data-img="37.jpg">
+    <img src="37.jpg" class="foto" alt="Río Somoto">
+    <div class="nombre">Río Somoto</div>
+  </div>
+
+  <div class="card" data-nombre="Iglesia de Somoto" data-desc="Patrimonio cultural y religioso de la ciudad, con historia centenaria." data-img="iglesia.jpg">
+    <img src="iglesia.jpg" class="foto" alt="Iglesia de Somoto">
+    <div class="nombre">Iglesia de Somoto</div>
+  </div>
+</div>
 </div>
 
-<div class="lugar" onclick="abrirLugar('parque')">
-Parque Central
-</div>
-
-<div class="lugar" onclick="abrirLugar('iglesia')">
-Iglesia Santiago Apóstol
-</div>
-
-<div class="lugar" onclick="abrirLugar('museo')">
-Museos Locales
-</div>
-
-</div>
-</div>
-
-<div class="section">
-<h3>📸 Galería</h3>
-<div class="galeria">
-<img src="unnamed.webp" data-desc="Cerámica artesanal">
-<img src="original_somoto_arquitectura_2-600x400.jpg" data-desc="Textiles tradicionales">
-<img src="original_somoto_arquitectura-7-600x400.jpg" data-desc="Tallados en madera">
-<img src="img4.jpg" data-desc="Cuero hecho a mano">
-</div>
+<div id="modalImagen" class="modal">
+  <div class="modalContent">
+    <img id="imagenGrande" src="" alt="">
+    <h3 id="tituloImagen"></h3>
+    <p id="descripcionImagen"></p>
+    <button id="cerrarModal">Cerrar</button>
+  </div>
 </div>
 
 <footer>
-<strong>Mercado Artesanal Somoto</strong><br><br>
-Plataforma cultural digital para promover el turismo y la identidad local.
+Plataforma digital cultural – Somoto, Madriz – Nicaragua
 </footer>
 
-<nav>
-<a href="#">🏠<br>Inicio</a>
-<a href="emprendedores.html">🏺<br>Negocios</a>
-<a href="#">🌄<br>Lugares</a>
+<!-- BARRA INFERIOR -->
+<nav class="bottomNav">
+
+  <a href="index.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M3 12l9-9 9 9v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/>
+    </svg>
+    <small>Inicio</small>
+  </a>
+
+  <a href="emprendedores.html" class="navItem active">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M6 2l3 6h6l3-6H6zm-3 8h18l-1.5 10a2 2 0 0 1-2 2H6.5a2 2 0 0 1-2-2L3 10z"/>
+    </svg>
+    <small>Emprendedores</small>
+  </a>
+
+  <a href="historia.html" class="navItem">
+    <svg viewBox="0 0 24 24" class="icon">
+      <path d="M12 2l7 4v16l-7-4-7 4V6z"/>
+    </svg>
+    <small>Historia</small>
+  </a>
+
 </nav>
 
-</section>
-
-<div id="modal">
-<div id="modalContent">
-<p id="modalDesc"></p>
-<button onclick="cerrarModal()">Cerrar</button>
-</div>
-</div>
-
 <script>
-const $ = id => document.getElementById(id);
+// Modal funcional para mostrar imágenes
+const modal = document.getElementById('modalImagen');
+const imgGrande = document.getElementById('imagenGrande');
+const titulo = document.getElementById('tituloImagen');
+const descripcion = document.getElementById('descripcionImagen');
+const cerrar = document.getElementById('cerrarModal');
 
-function iniciarApp(){
-$("app").style.display="block";
-$("saludo").innerText="Hola, "+localStorage.getItem("usuario")+" 👋";
-}
+document.querySelectorAll('#galeria .card').forEach(card => {
+  card.addEventListener('click', () => {
+    const imgSrc = card.dataset.img; // mejor usar dataset
+    const nombre = card.dataset.nombre;
+    const desc = card.dataset.desc;
 
-if(localStorage.getItem("sesion")){
-  setTimeout(iniciarApp, 300);
-} else {
-  iniciarApp();
-}
+    imgGrande.src = imgSrc;  // aquí se asigna correctamente
+    titulo.textContent = nombre;
+    descripcion.textContent = desc;
 
-
-function abrirInfo(tipo){
-$("modal").style.display="flex";
-
-if(tipo==="historia"){
-$("modalDesc").innerText=
-"El mercado artesanal de Somoto nació como un espacio para fortalecer la economía local y preservar las tradiciones culturales de Madriz. Aquí los emprendedores transforman técnicas ancestrales en arte vivo.";
-}
-
-if(tipo==="cultura"){
-$("modalDesc").innerText=
-"Incluye textiles hechos a mano, alfarería tradicional, productos de cuero artesanal y gastronomía típica como rosquillas y atol.";
-}
-}
-
-function cerrarModal(){
-$("modal").style.display="none";
-}
-
-$("modal").onclick=(e)=>{
-if(e.target.id==="modal"){
-cerrarModal();
-}
-};
-
-document.querySelectorAll(".galeria img").forEach(img=>{
-img.onclick=()=>{
-$("modal").style.display="flex";
-$("modalDesc").innerText=img.dataset.desc;
-};
+    modal.style.display = 'flex';
+  });
 });
 
-function abrirLugar(tipo){
-
-$("modal").style.display="flex";
-
-if(tipo==="canon"){
-$("modalDesc").innerText=
-"Monumento nacional Cañón de Somoto localizado en el municipio de Somoto del departamento de Madriz, Nicaragua, es un área protegida y monumento nacional conforme a la Ley n.º 605, Ley que Declara Área Protegida en la Categoría de Monumento Nacional al Cañón de Somoto,[1]​ aprobada el 29 de noviembre de 2006 y publicada en La Gaceta n.º 240 del 12 de diciembre del mismo año. El Cañón de Somoto fue redescubierto en 2004 por geólogos checos durante una visita de investigación geológica. Ellos lo describieron como un impresionante accidente geográfico que era desconocido, hasta ese momento, por la comunidad científica mundial. Solamente era conocido por los pobladores de las comunidades ubicadas en sus bordes que lo conocen como Namancambre o La Estrechura.[2]​";
-}
-
-if(tipo==="parque"){
-$("modalDesc").innerText=
-"El Parque Central de Somoto es el corazón social de la ciudad. Es un punto de encuentro cultural, rodeado de comercios locales, gastronomía y eventos comunitarios.";
-}
-
-if(tipo==="iglesia"){
-$("modalDesc").innerText=
-"La Iglesia Santiago Apóstol es uno de los templos históricos más importantes de Somoto. Representa la fe y tradición religiosa del pueblo desde hace generaciones.";
-}
-
-if(tipo==="museo"){
-$("modalDesc").innerText=
-"Los museos locales resguardan piezas arqueológicas, historia colonial y objetos culturales que muestran la identidad y evolución histórica de la región de Madriz.";
-}
-
-}
+cerrar.addEventListener('click', () => modal.style.display = 'none');
+modal.addEventListener('click', e => {
+  if(e.target === modal) modal.style.display = 'none';
+});
 </script>
 
 </body>

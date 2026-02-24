@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>YOLUVAMI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="23.jpeg">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
@@ -129,13 +130,18 @@ box-shadow:0 4px 12px rgba(0,0,0,.05);
 overflow:hidden;
 display:flex;
 flex-direction:column;
+transition:.3s;
+}
+
+.product:hover{
+transform:translateY(-3px);
 }
 
 .product img{
 width:100%;
 aspect-ratio:1/1;
 object-fit:contain;
-background:#f3f3f3;
+background:#ffffff;
 cursor:pointer;
 }
 
@@ -214,19 +220,29 @@ align-items:center;
 padding:20px;
 z-index:3000;
 }
-
 .modalContent{
-background:#fff;
-width:100%;
-max-width:480px;
-max-height:90vh;
-border-radius:20px;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-animation:scaleIn .25s ease;
+  background:#fff;
+  width:100%;
+  max-width:700px;
+  max-height:90vh;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  overflow: hidden; /* el scroll ahora será del body */
 }
 
+.modalBody{
+  padding:18px;
+  overflow-y: auto; /* el scroll incluye la imagen */
+  flex:1;
+}
+
+.modalBody img{
+  width:100%;
+  height:auto;
+  margin-bottom:12px;
+  object-fit:contain;
+}
 @keyframes scaleIn{
 from{transform:scale(.9);opacity:0;}
 to{transform:scale(1);opacity:1;}
@@ -236,7 +252,7 @@ to{transform:scale(1);opacity:1;}
 width:100%;
 max-height:300px;
 object-fit:contain;
-background:#f3f3f3;
+background:#ffffff;
 }
 
 .modalBody{
@@ -245,44 +261,6 @@ overflow-y:auto;
 flex:1;
 }
 
-.bottomNav{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background: #ffffff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 1px solid #eee;
-  box-shadow: 0 -4px 15px rgba(0,0,0,.08);
-  z-index: 999;
-}
-
-.bottomNav a{
-  text-decoration: none;
-  color: inherit;
-  flex:1;
-  text-align:center;
-}
-
-.navItem{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 11px;
-  color: #888;
-  transition: .3s;
-  position:relative;
-}
-
-.icon{
-  width: 24px;
-  height: 24px;
-  fill: currentColor;
-  margin-bottom:4px;
-}
 .modalBtn{
 margin-top:12px;
 padding:12px;
@@ -326,6 +304,79 @@ font-size:13px;
 margin-top:10px;
 line-height:1.5;
 }
+
+/* BARRA INFERIOR */
+.bottomNav{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -4px 15px rgba(0,0,0,.08);
+  z-index: 999;
+}
+
+.bottomNav a{
+  text-decoration: none;
+  color: inherit;
+  flex:1;
+  text-align:center;
+}
+
+.navItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+  color: #888;
+  transition: .3s;
+  position:relative;
+}
+
+.icon{
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  margin-bottom:4px;
+}
+
+/* RESPONSIVE ESCRITORIO */
+@media(min-width:768px){
+  .product-grid{
+    grid-template-columns: repeat(3,1fr);
+    padding:25px;
+    gap:20px;
+  }
+
+  .hero{
+    padding:40px 20px;
+  }
+
+  .modalContent{
+    max-width:600px;
+  }
+}
+
+@media(min-width:1200px){
+  .product-grid{
+    grid-template-columns: repeat(4,1fr);
+    padding:40px;
+    gap:25px;
+  }
+
+  .hero{
+    padding:60px 20px;
+  }
+
+  .modalContent{
+    max-width:700px;
+  }
+}
 </style>
 </head>
 
@@ -358,19 +409,17 @@ line-height:1.5;
 <div class="product-grid" id="productGrid"></div>
 
 <div id="cartBtn">🛒<div id="cartCount">0</div></div>
-
-<!-- MODAL PRODUCTO -->
 <div class="modal" id="productModal">
-<div class="modalContent">
-<img id="modalImg">
-<div class="modalBody">
-<h3 id="modalTitle"></h3>
-<div id="modalPrice" class="price"></div>
-<p id="modalDesc"></p>
-<button class="modalBtn" onclick="agregarDesdeModal()">Agregar al carrito</button>
-<button class="modalBtn" onclick="closeProduct()">Cerrar</button>
-</div>
-</div>
+  <div class="modalContent">
+    <div class="modalBody">
+      <img id="modalImg">
+      <h3 id="modalTitle"></h3>
+      <div id="modalPrice" class="price"></div>
+      <p id="modalDesc"></p>
+      <button class="modalBtn" onclick="agregarDesdeModal()">Agregar al carrito</button>
+      <button class="modalBtn" onclick="closeProduct()">Cerrar</button>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL INFO -->
@@ -404,7 +453,6 @@ Productos confiables y de alta calidad.
 
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
-
   <a href="index.html" class="navItem">
     <svg viewBox="0 0 24 24" class="icon">
       <path d="M3 12l9-9 9 9v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/>
@@ -419,21 +467,24 @@ Productos confiables y de alta calidad.
     <small>Emprendedores</small>
   </a>
 
-  <a href="mapa.html" class="navItem">
+  <a href="historia.html" class="navItem">
     <svg viewBox="0 0 24 24" class="icon">
       <path d="M12 2l7 4v16l-7-4-7 4V6z"/>
     </svg>
-    <small>Mapa</small>
+    <small>Historia</small>
   </a>
-
 </nav>
-<script>
 
+<script>
 const productos=[
 {name:"Aceite 15W40",price:1060,cat:"motor",img:"30.jpeg",desc:"Mobil Special 20W-50 es un aceite mineral de alta calidad diseñado para brindar protección confiable al motor en condiciones de trabajo exigentes. Su fórmula ayuda a reducir el desgaste y mantener el motor limpio, prolongando su vida útil."},
-{name:"Aceite 5W30",price:30,cat:"motor",img:"https://via.placeholder.com/400x400"},
-{name:"Grasa Industrial",price:15,cat:"grasas",img:"https://via.placeholder.com/400x400"},
-{name:"Hidráulico 68",price:40,cat:"industrial",img:"https://via.placeholder.com/400x400"}
+{name:"CLEAN ALL",price:180,cat:"motor",img:"39.jpeg",desc:`Es un limpiador espumoso multiusos diseñado especialmente para la limpieza interior y exterior de vehículos. 
+Su poderosa fórmula en espuma penetra profundamente en la suciedad, ayudando a remover manchas difíciles, polvo y grasa sin dañar las superficies.
+Viene en presentación de 650 ml, ideal tanto para uso profesional en talleres y autolavados como para uso doméstico.`},
+{name:"Freezetone - Engine Radiator Additiv",price:230,cat:"motor",img:"40.jpeg",desc:`Aditivo / Refrigerante para Radiador
+Freezetone es un aditivo para radiador de alto rendimiento, formulado con tecnología de larga duración para proteger y optimizar el sistema de enfriamiento del motor. Diseñado para mantener la temperatura adecuada y prevenir el sobrecalentamiento, incluso en condiciones exigentes.`},
+{name:"Freezetone – Refrigerante Rojo Long Life",price:230,cat:"motor",img:"41.jpeg",desc:`El Freezetone Rojo es un refrigerante de larga duración formulado con tecnología avanzada para brindar máxima protección al sistema de enfriamiento del motor. Diseñado para vehículos modernos, ofrece mayor resistencia contra la corrosión y el sobrecalentamiento.`},
+{name:"Flamingo Foam Cleaner – Limpiador Espumoso Multiusos",price:150,cat:"motor",img:"44.jpeg",desc:`Flamingo Foam Cleaner es un limpiador espumoso multiuso diseñado para la limpieza profunda del interior del vehículo. Su fórmula en espuma activa penetra en las superficies, ayudando a desprender la suciedad, grasa y manchas difíciles de forma rápida y efectiva.`},
 ];
 
 let cart=[];
@@ -492,14 +543,10 @@ cart.push(productos[index]);
 cartCount.innerText=cart.length;
 }
 
-/* ===============================
-   HORARIO AUTOMÁTICO NICARAGUA
-================================ */
-
+/* HORARIO AUTOMÁTICO NICARAGUA */
 const statusElement = document.getElementById("status");
 
 function actualizarEstado(){
-
 const ahora = new Date();
 const opciones = { timeZone: 'America/Managua', hour12: false };
 const horaNica = new Date(ahora.toLocaleString('en-US', opciones));
@@ -512,27 +559,20 @@ const apertura = 8 * 60 + 30; // 8:30 AM
 const cierre = 16 * 60;       // 4:00 PM
 
 if(totalMinutos >= apertura && totalMinutos < cierre){
-
 const faltan = cierre - totalMinutos;
 const h = Math.floor(faltan / 60);
 const m = faltan % 60;
-
 statusElement.innerHTML = `🟢 Abierto · Cierra en ${h}h ${m}m`;
 statusElement.className = "status abierto";
-
 }else{
-
 let faltan;
-
 if(totalMinutos < apertura){
 faltan = apertura - totalMinutos;
 }else{
 faltan = (24 * 60 - totalMinutos) + apertura;
 }
-
 const h = Math.floor(faltan / 60);
 const m = faltan % 60;
-
 statusElement.innerHTML = `🔴 Cerrado · Abre en ${h}h ${m}m`;
 statusElement.className = "status cerrado";
 }
@@ -546,7 +586,6 @@ precioMin.addEventListener("input",mostrarProductos);
 precioMax.addEventListener("input",mostrarProductos);
 
 mostrarProductos();
-
 </script>
 
 </body>

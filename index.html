@@ -180,6 +180,120 @@ input,select{
   margin-top:10px;
 }
 
+/* --- MODAL GENERAL --- */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(5px);
+  justify-content:center;
+  align-items:flex-end; /* 🔥 LO PEGA ABAJO */
+  z-index:1000;
+  cursor:pointer;
+}
+.modalContent{
+  animation:slideUp .35s ease;
+}
+/* --- MODAL CENTRADO PARA 1 Y 2 --- */
+.modalContent.centerModal{
+  background:linear-gradient(180deg, #1e3a8a, #14285f);
+  border-radius:25px;
+  padding:30px 25px;
+  max-width:90%;
+  width:380px;
+  text-align:center;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
+  border: 2px solid #cecece;
+  position: relative;
+}
+
+.fancyModal h1, .fancyModal h2{
+  color:#ffffff;
+  margin-bottom:15px;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.fancyModal p{
+  color:#ffffff;
+  font-size:15px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.modalImg{
+  width:200px;
+  border-radius:20px;
+  margin:15px 0;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease;
+}
+
+.modalImg:hover{
+  transform: scale(1.05) rotate(-2deg);
+}
+
+/* --- MODAL 3 IMAGEN --- */
+.modalContent.centerModal.modalImagen{
+  background: transparent;
+  padding:0;
+  max-width:90%;
+  max-height:90%;
+}
+
+.modalSoloImagen{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border-radius:20px;
+  transition: transform 0.3s ease;
+}
+
+.modalSoloImagen:hover{
+  transform: scale(1.03);
+}
+
+/* Botón de cerrar Modal 3 */
+.btnCerrar{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:rgba(0,0,0,0.5);
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  font-size:18px;
+  cursor:pointer;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: background 0.2s;
+}
+
+.btnCerrar:hover{
+  background:rgba(0,0,0,0.8);
+}
+
+/* --- BOTONES PRINCIPALES --- */
+.btnPrincipal{
+  padding:12px 25px;
+  font-weight:700;
+  background:#a4a4a4;
+  color:#fff;
+  border:none;
+  border-radius:15px;
+  cursor:pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btnPrincipal:hover{
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+}
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -344,7 +458,33 @@ Plataforma digital cultural – Somoto, Madriz – Nicaragua
 
   </div>
 </div>
+<!-- MODAL 1 – BIENVENIDA IMPACTANTE -->
+<div id="modalBienvenida" class="modal">
+  <div class="modalContent centerModal fancyModal">
+    <h1>🎉 ¡Bienvenido!</h1>
+    <p>Esta app está creada para dar a conocer a los emprendedores del Mercado de Artesanías y mostrar un poco más de la cultura nicaragüense.</p>
+    <img src="31.jpeg" alt="Mercado" class="modalImg">
+    <button class="btnPrincipal" onclick="cerrarBienvenida()">¡Explorar!</button>
+  </div>
+</div>
 
+<!-- MODAL 2 – INFORMACIÓN RÁPIDA -->
+<div id="modalInfo" class="modal">
+  <div class="modalContent centerModal fancyModal">
+    <h2>📊 Estado del Mercado</h2>
+    <p id="modalHorario"></p>
+    <p id="modalOcupacion"></p>
+    <button class="btnPrincipal" onclick="cerrarInfo()">¡Entendido!</button>
+  </div>
+</div>
+
+<!-- MODAL 3 – IMAGEN CENTRADA CON BOTÓN DE CERRAR -->
+<div id="modalImagen" class="modal">
+  <div class="modalContent centerModal fancyModal">
+    <button class="btnCerrar" onclick="cerrarModalImagen()">✖</button>
+    <img src="47.jpeg" alt="Imagen Especial" class="modalSoloImagen">
+  </div>
+</div>
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
 
@@ -376,6 +516,68 @@ Plataforma digital cultural – Somoto, Madriz – Nicaragua
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+// --- FUNCIONES MODALES 1 Y 2 ---
+function cerrarBienvenida(){
+  document.getElementById('modalBienvenida').style.display='none';
+  setTimeout(()=>document.getElementById('modalInfo').style.display='flex', 300);
+}
+
+function cerrarInfo(){
+  document.getElementById('modalInfo').style.display='none';
+  setTimeout(()=>abrirModalImagen(), 300);
+}
+
+// --- FUNCIONES MODAL 3 ---
+function abrirModalImagen(){
+  document.getElementById('modalImagen').style.display='flex';
+}
+
+function cerrarModalImagen(){
+  document.getElementById('modalImagen').style.display='none';
+
+  // Guardamos el momento en que terminó la secuencia
+  localStorage.setItem('modalesUltimaVez', Date.now());
+}
+
+// --- CONTROL AL CARGAR LA PÁGINA ---
+window.addEventListener('load', ()=>{
+
+  const ahora = Date.now();
+  const ultimaVez = localStorage.getItem('modalesUltimaVez');
+
+  const diezMinutos = 10 * 60 * 1000; // 🔥 10 minutos
+
+  // Solo se ejecuta al cargar la página
+  if(!ultimaVez || (ahora - ultimaVez) > diezMinutos){
+
+    document.getElementById('modalBienvenida').style.display='flex';
+
+    // Info rápida
+    const totalLocales = 16;
+    const ocupados = 14;
+    const porcentaje = Math.round((ocupados/totalLocales)*100);
+    document.getElementById('modalOcupacion').innerText = 
+      `${ocupados} de ${totalLocales} locales ocupados (${porcentaje}%)`;
+
+    const fechaActual = new Date();
+    const horaActual = fechaActual.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('modalHorario').innerText = 
+      `Horario: 8:30 AM - 5:00 PM • Hora actual: ${horaActual}`;
+  }
+
+  // Cerrar al tocar fuera
+  ['modalBienvenida','modalInfo','modalImagen'].forEach(id=>{
+    const modal = document.getElementById(id);
+    if(modal){
+      modal.addEventListener('click', e=>{
+        if(e.target === modal){
+          modal.style.display='none';
+        }
+      });
+    }
+  });
+
+});
 /* =========================
    CONFIGURACIÓN GENERAL
 ========================= */
@@ -385,9 +587,9 @@ const LOCALES_OCUPADOS = 14;
 const emprendedores = [
 {nombre:"YOLUVAMI",ofrece:"Lubricantes y aceites",categoria:"Lubricantes",telefono:"50588880001",foto:"23.jpeg"},
 {nombre:"Creaciones Mary",ofrece:"Todo tipo de artesanía",categoria:"Artesanía",telefono:"50585163627",foto:"12.jpeg"},
-{nombre:"Álvarito Valladarez",ofrece:"Productos de cuero",categoria:"Cuero",telefono:"50588880003",foto:"https://i.pravatar.cc/100?img=3"},
-{nombre:"Creaciones la Moda",ofrece:"Rosquillas tradicionales",categoria:"Gastronomía",telefono:"50588880004",foto:"https://i.pravatar.cc/100?img=4"},
-{nombre:"Alfarería Sánchez",ofrece:"Cerámica artesanal",categoria:"Cerámica",telefono:"50588880005",foto:"https://i.pravatar.cc/100?img=5"},
+{nombre:"Álvarito Valladarez",ofrece:"Productos de cuero",categoria:"Cuero",telefono:"50588880003",foto:"38.jpeg"},
+{nombre:"Creaciones la Moda",ofrece:"Rosquillas tradicionales",categoria:"Gastronomía",telefono:"50588880004",foto:"35.jpeg"},
+{nombre:"J_BARBER",ofrece:"Cortes de pelo",categoria:"Barberia",telefono:"50588880005",foto:"33.jpeg"},
 {nombre:"Bordados Anita",ofrece:"Ropa bordada",categoria:"Textiles",telefono:"50588880006",foto:"https://i.pravatar.cc/100?img=6"}
 ];
 

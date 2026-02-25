@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Alvarito Valladares - Arte & Creatividad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary:#7c3aed;
+--bg:#f3f0ff;
+--text:#222;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+font-family:'Poppins',sans-serif;
+background:var(--bg);
+color:var(--text);
+padding-bottom:120px;
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+background:#fff;
+box-shadow:0 2px 10px rgba(0,0,0,.05);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+header h3{
+color:var(--primary);
+font-size:16px;
+}
+
+.status{
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+.abierto{
+background:#d1fae5;
+color:#065f46;
+}
+
+.cerrado{
+background:#fee2e2;
+color:#7f1d1d;
+}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:60px 20px;
+background:linear-gradient(180deg,#7c3aed,#5b21b6);
+color:#fff;
+border-radius:0 0 40px 40px;
+}
+
+.hero img{
+width:130px;
+height:130px;
+border-radius:50%;
+object-fit:cover;
+border:5px solid #fff;
+margin-bottom:15px;
+}
+
+.hero h2{margin:5px 0;font-size:22px;}
+.hero p{font-size:14px;margin:4px 0;opacity:.9;}
+
+.infoBtn{
+margin-top:15px;
+padding:10px 22px;
+border:none;
+border-radius:25px;
+background:#fff;
+color:var(--primary);
+font-weight:600;
+cursor:pointer;
+}
+
+/* SECCIONES */
+.section{
+padding:50px 20px;
+max-width:1200px;
+margin:auto;
+text-align:center;
+}
+
+.section h2{
+color:var(--primary);
+margin-bottom:25px;
+}
+
+/* GALERÍA */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+height:280px;
+object-fit:cover;
+border-radius:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+/* CLASES */
+.clases{
+display:grid;
+gap:20px;
+max-width:900px;
+margin:auto;
+}
+
+.clase-card{
+background:#fff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 6px 15px rgba(0,0,0,.05);
+}
+
+.clase-card h4{
+color:var(--primary);
+margin-bottom:8px;
+}
+
+.clase-card button{
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:12px;
+background:var(--primary);
+color:#fff;
+cursor:pointer;
+}
+
+/* PRODUCTOS */
+.product-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.product{
+background:#fff;
+border-radius:18px;
+box-shadow:0 6px 15px rgba(0,0,0,.05);
+overflow:hidden;
+display:flex;
+flex-direction:column;
+}
+
+.product img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+cursor:pointer;
+}
+
+.product-body{
+padding:12px;
+text-align:center;
+}
+
+.price{
+color:var(--primary);
+font-weight:600;
+margin:6px 0;
+}
+
+.product button{
+padding:9px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:#fff;
+cursor:pointer;
+}
+
+/* CARRITO */
+#cartBtn{
+position:fixed;
+right:20px;
+bottom:100px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:var(--primary);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+#cartCount{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+width:20px;
+height:20px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:3000;
+}
+
+.modalContent{
+background:#fff;
+padding:25px;
+border-radius:20px;
+width:100%;
+max-width:500px;
+text-align:center;
+}
+
+.modalContent img{
+width:100%;
+max-height:300px;
+object-fit:cover;
+border-radius:15px;
+}
+
+.modal button{
+margin-top:12px;
+padding:10px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:#fff;
+width:100%;
+cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(min-width:768px){
+.product-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(min-width:1200px){
+.product-grid{grid-template-columns:repeat(4,1fr);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div id="status" class="status"></div>
+</header>
+
+<div class="hero">
+<img src="38.jpeg">
+<h2>Arte & Creatividad</h2>
+<p>Cuadros · Manualidades · Maquetas · Clases</p>
+<p>Somoto · Madriz · Nicaragua 🇳🇮</p>
+<button class="infoBtn" onclick="openInfo()">Ver Información</button>
+</div>
+
+<!-- GALERÍA -->
+<div class="section">
+<h2>Galería de Trabajos</h2>
+<div class="gallery">
+<img src="cuadro1.jpg" onclick="openImage(this.src)">
+<img src="cuadro2.jpg" onclick="openImage(this.src)">
+<img src="maqueta1.jpg" onclick="openImage(this.src)">
+<img src="manualidad1.jpg" onclick="openImage(this.src)">
+</div>
+</div>
+
+<!-- CLASES -->
+<div class="section">
+<h2>Clases de Pintura</h2>
+<div class="clases">
+<div class="clase-card">
+<h4>Clases para Niños</h4>
+<p>Desarrollo creativo y técnicas básicas.</p>
+<button onclick="contactar('Clases para Niños')">Solicitar Información</button>
+</div>
+<div class="clase-card">
+<h4>Clases para Adultos</h4>
+<p>Acrílico y óleo para todos los niveles.</p>
+<button onclick="contactar('Clases para Adultos')">Solicitar Información</button>
+</div>
+</div>
+</div>
+
+<!-- PRODUCTOS -->
+<div class="section">
+<h2>Productos Disponibles</h2>
+<div class="product-grid" id="productGrid"></div>
+</div>
+
+<div id="cartBtn" onclick="openCart()">🛒<div id="cartCount">0</div></div>
+
+<!-- MODALES -->
+<div class="modal" id="infoModal">
+<div class="modalContent">
+<h3>Información del Negocio</h3>
+<p><strong>Horario:</strong> 9:00 AM - 5:00 PM</p>
+<p><strong>Ubicación:</strong> Somoto, Madriz</p>
+<p>Arte personalizado, maquetas y clases creativas.</p>
+<button onclick="closeModal('infoModal')">Cerrar</button>
+</div>
+</div>
+
+<div class="modal" id="imageModal">
+<div class="modalContent">
+<img id="modalImage">
+<button onclick="closeModal('imageModal')">Cerrar</button>
+</div>
+</div>
+
+<div class="modal" id="cartModal">
+<div class="modalContent">
+<h3>Carrito</h3>
+<div id="cartItems"></div>
+<button onclick="closeModal('cartModal')">Cerrar</button>
+</div>
+</div>
+
+<script>
+const productos=[
+{name:"Cuadro Paisaje",price:1200,img:"cuadro1.jpg"},
+{name:"Maqueta Escolar",price:850,img:"maqueta1.jpg"},
+{name:"Decoración Artesanal",price:450,img:"manualidad1.jpg"}
+];
+
+let cart=[];
+
+function mostrarProductos(){
+productGrid.innerHTML="";
+productos.forEach((p,i)=>{
+productGrid.innerHTML+=`
+<div class="product">
+<img src="${p.img}" onclick="openImage('${p.img}')">
+<div class="product-body">
+<h4>${p.name}</h4>
+<div class="price">C$${p.price}</div>
+<button onclick="addToCart(${i})">Agregar</button>
+</div>
+</div>`;
+});
+}
+
+function addToCart(i){
+cart.push(productos[i]);
+cartCount.innerText=cart.length;
+}
+
+function openCart(){
+cartItems.innerHTML="";
+cart.forEach(item=>{
+cartItems.innerHTML+=`<p>${item.name} - C$${item.price}</p>`;
+});
+cartModal.style.display="flex";
+}
+
+function openImage(src){
+modalImage.src=src;
+imageModal.style.display="flex";
+}
+
+function openInfo(){infoModal.style.display="flex";}
+function closeModal(id){document.getElementById(id).style.display="none";}
+
+function contactar(clase){
+window.open(`https://wa.me/50500000000?text=Hola, quiero información sobre ${clase}`);
+}
+
+/* HORARIO AUTOMÁTICO NICARAGUA */
+const statusElement = document.getElementById("status");
+
+function actualizarEstado(){
+const ahora = new Date();
+const opciones = { timeZone: "America/Managua", hour12:false };
+const horaNica = new Date(ahora.toLocaleString("en-US", opciones));
+const hora = horaNica.getHours();
+
+if(hora >= 9 && hora < 17){
+statusElement.innerHTML="🟢 Abierto ahora";
+statusElement.className="status abierto";
+}else{
+statusElement.innerHTML="🔴 Cerrado ahora";
+statusElement.className="status cerrado";
+}
+}
+
+setInterval(actualizarEstado,60000);
+actualizarEstado();
+
+mostrarProductos();
+</script>
+
+</body>
+</html>

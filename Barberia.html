@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>J-BARBER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary:#111827;
+--accent:#d4af37;
+--bg:#f3f4f6;
+--text:#222;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:var(--bg);
+color:var(--text);
+padding-bottom:120px;
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 16px;
+background:#fff;
+box-shadow:0 2px 10px rgba(0,0,0,.05);
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.status{
+font-size:13px;
+font-weight:600;
+padding:6px 12px;
+border-radius:20px;
+}
+
+.abierto{color:#065f46;background:#d1fae5;}
+.cerrado{color:#7f1d1d;background:#fee2e2;}
+
+/* HERO */
+.hero{
+text-align:center;
+padding:40px 20px;
+background:linear-gradient(180deg,#000,#1f2937);
+color:#fff;
+border-radius:0 0 30px 30px;
+}
+
+.hero img{
+width:110px;
+height:110px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+margin-bottom:12px;
+}
+
+.hero h2{margin:6px 0;font-size:22px;}
+.hero p{font-size:13px;opacity:.9;margin:4px 0;}
+
+.infoBtn{
+margin-top:12px;
+padding:9px 18px;
+border:none;
+border-radius:25px;
+background:var(--accent);
+color:#000;
+font-weight:600;
+cursor:pointer;
+}
+
+/* FILTROS */
+.filtros{
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.filtros select,
+.filtros input{
+padding:10px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:14px;
+background:#fff;
+}
+
+/* GRID */
+.product-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+padding:15px;
+}
+
+.product{
+background:#fff;
+border-radius:16px;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
+overflow:hidden;
+display:flex;
+flex-direction:column;
+transition:.3s;
+}
+
+.product:hover{transform:translateY(-3px);}
+
+.product img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+cursor:pointer;
+}
+
+.product-body{
+padding:10px;
+display:flex;
+flex-direction:column;
+flex:1;
+}
+
+.product h4{font-size:13px;margin:0;font-weight:500;}
+
+.price{
+font-size:14px;
+font-weight:600;
+color:var(--accent);
+margin:6px 0;
+}
+
+.product button{
+margin-top:auto;
+padding:9px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:#fff;
+font-size:13px;
+cursor:pointer;
+}
+
+/* CARRITO */
+#cartBtn{
+position:fixed;
+right:18px;
+bottom:110px;
+background:var(--primary);
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+cursor:pointer;
+}
+
+#cartCount{
+position:absolute;
+top:-4px;
+right:-4px;
+background:#dc2626;
+width:20px;
+height:20px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:none;
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:3000;
+}
+
+.modalContent{
+background:#fff;
+width:100%;
+max-width:500px;
+border-radius:20px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+}
+
+.modalBody{
+padding:18px;
+overflow-y:auto;
+}
+
+.modalBody img{
+width:100%;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.modalBtn{
+margin-top:12px;
+padding:12px;
+border:none;
+border-radius:12px;
+background:var(--primary);
+color:#fff;
+width:100%;
+font-weight:600;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div id="status" class="status"></div>
+</header>
+
+<div class="hero">
+<img src="33.jpeg">
+<h2>J-BARBER 💈</h2>
+<p>Somoto · Madriz · Nicaragua 🇳🇮</p>
+<p>Cortes · Barba · Cejas · Productos</p>
+<button class="infoBtn" onclick="openInfo()">Ver Información</button>
+</div>
+
+<div class="filtros">
+<select id="categoriaFiltro">
+<option value="todos">Todo</option>
+<option value="servicio">Servicios</option>
+<option value="producto">Productos</option>
+</select>
+<input type="number" id="precioMin" placeholder="Precio mínimo">
+<input type="number" id="precioMax" placeholder="Precio máximo">
+</div>
+
+<div class="product-grid" id="productGrid"></div>
+
+<div id="cartBtn">🛒<div id="cartCount">0</div></div>
+
+<!-- MODAL PRODUCTO -->
+<div class="modal" id="productModal">
+<div class="modalContent">
+<div class="modalBody">
+<img id="modalImg">
+<h3 id="modalTitle"></h3>
+<div id="modalPrice" class="price"></div>
+<p id="modalDesc"></p>
+<button class="modalBtn" onclick="agregarDesdeModal()">Agregar al carrito</button>
+<button class="modalBtn" onclick="closeProduct()">Cerrar</button>
+</div>
+</div>
+</div>
+
+<!-- MODAL INFO -->
+<div class="modal" id="infoModal">
+<div class="modalContent">
+<div class="modalBody">
+<h3>J-BARBER 💈</h3>
+<p><strong>Ubicación:</strong> Somoto, Madriz</p>
+<p><strong>Horario:</strong> 9:00 AM - 7:00 PM</p>
+<p>Barbería profesional especializada en cortes modernos, clásicos y degradados. Atención personalizada y productos de calidad.</p>
+<button class="modalBtn" onclick="closeInfo()">Cerrar</button>
+</div>
+</div>
+</div>
+<!-- MODAL AGENDAR CITA -->
+<div class="modal" id="agendaModal">
+<div class="modalContent">
+<div class="modalBody">
+<h3>Agendar Cita 💈</h3>
+<p id="agendaServicio"></p>
+
+<input type="text" id="nombreCliente" placeholder="Tu nombre" style="width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #ddd;">
+<input type="date" id="fechaCita" style="width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #ddd;">
+<input type="time" id="horaCita" style="width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #ddd;">
+
+<button class="modalBtn" onclick="confirmarCita()">Confirmar Cita</button>
+<button class="modalBtn" onclick="cerrarAgenda()">Cancelar</button>
+</div>
+</div>
+</div>
+<script>const productos=[
+{name:"Taper Fadeo",price:120,cat:"servicio",img:"50.jpeg",desc:"Corte tradicional con acabado profesional."},
+{name:"Degradado(Fade)",price:150,cat:"servicio",img:"https://i.imgur.com/kq4XK7F.jpg",desc:"Fade moderno con estilo personalizado."},
+{name:"Perfilado de Barba",price:80,cat:"servicio",img:"https://i.imgur.com/BrR1Y5N.jpg",desc:"Perfilado y arreglo profesional de barba."},
+{name:"Diseño de Cejas",price:50,cat:"servicio",img:"https://i.imgur.com/7yUvePI.jpg",desc:"Limpieza y diseño de cejas masculino."},
+{name:"Cera para Cabello",price:180,cat:"producto",img:"https://i.imgur.com/tjG3QvL.jpg",desc:"Cera profesional de fijación fuerte."},
+{name:"Gorra J-Barber",price:250,cat:"producto",img:"https://i.imgur.com/x5kX1lH.jpg",desc:"Gorra exclusiva edición J-Barber."},
+];
+
+let cart=[];
+let productoActual=null;
+
+/* MOSTRAR PRODUCTOS */
+function mostrarProductos(){
+let cat=categoriaFiltro.value;
+let min=precioMin.value;
+let max=precioMax.value;
+productGrid.innerHTML="";
+
+productos.filter(p=>
+(cat==="todos"||p.cat===cat)&&
+(!min||p.price>=min)&&
+(!max||p.price<=max)
+).forEach((p,index)=>{
+
+let boton = p.cat==="servicio"
+? `<button onclick="abrirAgenda(${index})">Agendar cita</button>`
+: `<button onclick="addToCart(${index})">Agregar</button>`;
+
+productGrid.innerHTML+=`
+<div class="product">
+<img src="${p.img}" onclick="verProducto(${index})">
+<div class="product-body">
+<h4>${p.name}</h4>
+<div class="price">C$${p.price}</div>
+${boton}
+</div>
+</div>`;
+});
+}
+
+/* VER PRODUCTO */
+function verProducto(index){
+productoActual=productos[index];
+modalTitle.innerText=productoActual.name;
+modalDesc.innerText=productoActual.desc;
+modalPrice.innerText="C$"+productoActual.price;
+modalImg.src=productoActual.img;
+productModal.style.display="flex";
+}
+
+function closeProduct(){productModal.style.display="none";}
+function openInfo(){infoModal.style.display="flex";}
+function closeInfo(){infoModal.style.display="none";}
+
+/* CARRITO SOLO PRODUCTOS */
+function addToCart(index){
+cart.push(productos[index]);
+cartCount.innerText=cart.length;
+mostrarAlerta("Producto agregado al carrito 🛒","success");
+}
+
+/* ABRIR MODAL AGENDA */
+function abrirAgenda(index){
+productoActual=productos[index];
+agendaServicio.innerText=productoActual.name;
+agendaModal.style.display="flex";
+}
+
+function cerrarAgenda(){
+agendaModal.style.display="none";
+}
+
+/* CONFIRMAR CITA → ENVÍA A WHATSAPP */
+function confirmarCita(){
+let nombre=document.getElementById("nombreCliente").value;
+let fecha=document.getElementById("fechaCita").value;
+let hora=document.getElementById("horaCita").value;
+
+if(!nombre || !fecha || !hora){
+mostrarAlerta("Completa todos los campos","error");
+return;
+}
+
+// ⚠️ CAMBIA ESTE NÚMERO
+let telefono="50588888888"; // sin +
+
+let mensaje=`💈 *Nueva Cita - J-BARBER* 💈
+👤 Cliente: ${nombre}
+✂ Servicio: ${productoActual.name}
+📅 Fecha: ${fecha}
+⏰ Hora: ${hora}
+
+Confirmar disponibilidad.`;
+
+let url=`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url,"_blank");
+
+mostrarAlerta("Cita enviada a WhatsApp correctamente ✅","success");
+
+cerrarAgenda();
+
+// limpiar campos
+document.getElementById("nombreCliente").value="";
+document.getElementById("fechaCita").value="";
+document.getElementById("horaCita").value="";
+}
+
+/* ALERTA PROFESIONAL */
+function mostrarAlerta(mensaje,tipo){
+let alerta=document.getElementById("customAlert");
+alerta.innerText=mensaje;
+
+alerta.className="customAlert showAlert";
+
+if(tipo==="success"){
+alerta.classList.add("alert-success");
+}else{
+alerta.classList.add("alert-error");
+}
+
+setTimeout(()=>{
+alerta.classList.remove("showAlert");
+},3000);
+}
+
+/* HORARIO NICARAGUA */
+const statusElement=document.getElementById("status");
+function actualizarEstado(){
+const ahora=new Date();
+const opciones={timeZone:'America/Managua',hour12:false};
+const horaNica=new Date(ahora.toLocaleString('en-US',opciones));
+const hora=horaNica.getHours();
+
+if(hora>=9 && hora<19){
+statusElement.innerHTML="🟢 Abierto";
+statusElement.className="status abierto";
+}else{
+statusElement.innerHTML="🔴 Cerrado";
+statusElement.className="status cerrado";
+}
+}
+
+setInterval(actualizarEstado,60000);
+actualizarEstado();
+
+/* EVENTOS FILTRO */
+categoriaFiltro.addEventListener("change",mostrarProductos);
+precioMin.addEventListener("input",mostrarProductos);
+precioMax.addEventListener("input",mostrarProductos);
+
+mostrarProductos();
+</script>
+
+</body>
+</html>

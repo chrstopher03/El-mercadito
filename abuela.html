@@ -327,7 +327,38 @@ font-size:13px;
 margin-top:10px;
 line-height:1.5;
 }
-</style>
+/* RESPONSIVE ESCRITORIO */
+@media(min-width:768px){
+  .product-grid{
+    grid-template-columns: repeat(3,1fr);
+    padding:25px;
+    gap:20px;
+  }
+
+  .hero{
+    padding:40px 20px;
+  }
+
+  .modalContent{
+    max-width:600px;
+  }
+}
+
+@media(min-width:1200px){
+  .product-grid{
+    grid-template-columns: repeat(4,1fr);
+    padding:40px;
+    gap:25px;
+  }
+
+  .hero{
+    padding:60px 20px;
+  }
+
+  .modalContent{
+    max-width:700px;
+  }
+}</style>
 </head>
 
 <body>

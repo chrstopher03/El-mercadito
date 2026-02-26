@@ -1,0 +1,21 @@
+{
+  "name": "Mercado Artesanías Somoto",
+  "short_name": "Mercado Somoto",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#355e3b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "49.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "49.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

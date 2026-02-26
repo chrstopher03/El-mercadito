@@ -4,7 +4,11 @@
 <meta charset="UTF-8">
 <title>La Plaza</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="49.jpeg">
+<link rel="icon" href="49.jpeg">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#355e3b">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -390,12 +394,15 @@ input,select{
 </head>
 
 <body>
-
 <header>Mercado Artesanías Somoto</header>
 
 <div class="hero">
-<h2>Impulsando la Economía Local</h2>
-<p id="estadoHorario"></p>
+  <h2>Impulsando la Economía Local</h2>
+  <p id="estadoHorario"></p>
+
+  <button id="btnInstalar" class="btnPrincipal" style="display:none;margin-top:15px;">
+    📲 Instalar App
+  </button>
 </div>
 
 <div class="section">
@@ -513,70 +520,7 @@ Plataforma digital cultural – Somoto, Madriz – Nicaragua
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<script>
-// --- FUNCIONES MODALES 1 Y 2 ---
-function cerrarBienvenida(){
-  document.getElementById('modalBienvenida').style.display='none';
-  setTimeout(()=>document.getElementById('modalInfo').style.display='flex', 300);
-}
-
-function cerrarInfo(){
-  document.getElementById('modalInfo').style.display='none';
-  setTimeout(()=>abrirModalImagen(), 300);
-}
-
-// --- FUNCIONES MODAL 3 ---
-function abrirModalImagen(){
-  document.getElementById('modalImagen').style.display='flex';
-}
-
-function cerrarModalImagen(){
-  document.getElementById('modalImagen').style.display='none';
-
-  // Guardamos el momento en que terminó la secuencia
-  localStorage.setItem('modalesUltimaVez', Date.now());
-}
-
-// --- CONTROL AL CARGAR LA PÁGINA ---
-window.addEventListener('load', ()=>{
-
-  const ahora = Date.now();
-  const ultimaVez = localStorage.getItem('modalesUltimaVez');
-
-  const diezMinutos = 10 * 60 * 1000; // 🔥 10 minutos
-
-  // Solo se ejecuta al cargar la página
-  if(!ultimaVez || (ahora - ultimaVez) > diezMinutos){
-
-    document.getElementById('modalBienvenida').style.display='flex';
-
-    // Info rápida
-    const totalLocales = 16;
-    const ocupados = 14;
-    const porcentaje = Math.round((ocupados/totalLocales)*100);
-    document.getElementById('modalOcupacion').innerText = 
-      `${ocupados} de ${totalLocales} locales ocupados (${porcentaje}%)`;
-
-    const fechaActual = new Date();
-    const horaActual = fechaActual.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-    document.getElementById('modalHorario').innerText = 
-      `Horario: 8:30 AM - 5:00 PM • Hora actual: ${horaActual}`;
-  }
-
-  // Cerrar al tocar fuera
-  ['modalBienvenida','modalInfo','modalImagen'].forEach(id=>{
-    const modal = document.getElementById(id);
-    if(modal){
-      modal.addEventListener('click', e=>{
-        if(e.target === modal){
-          modal.style.display='none';
-        }
-      });
-    }
-  });
-
-});
-/* =========================
+<script>/* =========================
    CONFIGURACIÓN GENERAL
 ========================= */
 const TOTAL_LOCALES = 16;
@@ -586,20 +530,52 @@ const emprendedores = [
 {nombre:"YOLUVAMI",ofrece:"Lubricantes y aceites",categoria:"Lubricantes",telefono:"50588880001",foto:"23.jpeg"},
 {nombre:"Creaciones Mary",ofrece:"Todo tipo de artesanía",categoria:"Artesanía",telefono:"50585163627",foto:"12.jpeg"},
 {nombre:"Galeria Alvaro",ofrece:"Cuadros,manualidades",categoria:"Pintura",telefono:"50557674926",foto:"38.jpeg"},
-{nombre:"Creaciones la Moda",ofrece:"costura",categoria:"costura",telefono:"50558320825",foto:"35.jpeg"},
+{nombre:"Creaciones la Moda",ofrece:"costura",categoria:"Costura",telefono:"50558320825",foto:"35.jpeg"},
 {nombre:"J_BARBER",ofrece:"Cortes de pelo",categoria:"Barberia",telefono:"50576837733",foto:"33.jpeg"},
-{nombre:"CAFETIN OMARIT",ofrece:"comida",categoria:"comida",telefono:"505",foto:"59.jpeg"}
+{nombre:"CAFETIN OMARIT",ofrece:"Comida",categoria:"Gastronomía",telefono:"505",foto:"59.jpeg"}
 ];
 
 const $ = id => document.getElementById(id);
 
 /* =========================
-   GENERAR CATEGORÍAS
+   MODAL SECUENCIA
+========================= */
+function cerrarBienvenida(){
+  $("modalBienvenida").style.display='none';
+  setTimeout(()=> $("modalInfo").style.display='flex', 300);
+}
+
+function cerrarInfo(){
+  $("modalInfo").style.display='none';
+  setTimeout(()=> abrirModalImagen(), 300);
+}
+
+function abrirModalImagen(){
+  $("modalImagen").style.display='flex';
+}
+
+function cerrarModalImagen(){
+  $("modalImagen").style.display='none';
+  localStorage.setItem('modalesUltimaVez', Date.now());
+}
+
+window.addEventListener('load', ()=>{
+  const ahora = Date.now();
+  const ultimaVez = localStorage.getItem('modalesUltimaVez');
+  const diezMinutos = 10 * 60 * 1000;
+
+  if(!ultimaVez || (ahora - ultimaVez) > diezMinutos){
+    $("modalBienvenida").style.display='flex';
+  }
+});
+
+/* =========================
+   EMPRENDEDORES
 ========================= */
 function generarCategorias(){
   const categoriasUnicas = [...new Set(emprendedores.map(e => e.categoria))];
   const select = $("filtro");
-  select.innerHTML = `<option value="todos">Todas las categorías</option>`;
+  select.innerHTML = `<option value="todos">Todas</option>`;
   categoriasUnicas.forEach(cat=>{
     const option = document.createElement("option");
     option.value = cat;
@@ -608,9 +584,6 @@ function generarCategorias(){
   });
 }
 
-/* =========================
-   MODAL
-========================= */
 function abrirModal(){
   $("modal").style.display="flex";
   mostrar();
@@ -620,30 +593,17 @@ function cerrarModal(){
   $("modal").style.display="none";
 }
 
-$("modal").addEventListener("click",e=>{
-  if(e.target.id==="modal") cerrarModal();
-});
-
-/* =========================
-   MOSTRAR EMPRENDEDORES
-========================= */
 function mostrar(){
-  const texto = $("buscador").value.toLowerCase().trim();
+  const texto = $("buscador").value.toLowerCase();
   const filtro = $("filtro").value;
   $("lista").innerHTML="";
-  const filtrados = emprendedores.filter(e => {
-    const coincideTexto =
-      e.nombre.toLowerCase().includes(texto) ||
-      e.ofrece.toLowerCase().includes(texto);
-    const coincideCategoria =
-      filtro === "todos" || e.categoria === filtro;
-    return coincideTexto && coincideCategoria;
-  });
-  if(filtrados.length === 0){
-    $("lista").innerHTML =
-      "<p style='text-align:center;'>No se encontraron resultados</p>";
-    return;
-  }
+
+  const filtrados = emprendedores.filter(e =>
+    (e.nombre.toLowerCase().includes(texto) ||
+     e.ofrece.toLowerCase().includes(texto)) &&
+    (filtro==="todos" || e.categoria===filtro)
+  );
+
   filtrados.forEach(emp=>{
     const div=document.createElement("div");
     div.className="card";
@@ -651,12 +611,10 @@ function mostrar(){
       <img src="${emp.foto}" class="foto">
       <div class="nombre">${emp.nombre}</div>
       <div class="oferta">${emp.ofrece}</div>
-      <div class="categoria">${emp.categoria}</div>
       <a class="whatsapp" target="_blank"
       href="https://wa.me/${emp.telefono}">
       WhatsApp
-      </a>
-    `;
+      </a>`;
     $("lista").appendChild(div);
   });
 }
@@ -665,20 +623,10 @@ function mostrar(){
    OCUPACIÓN
 ========================= */
 function actualizarOcupacion(){
-  const disponibles = TOTAL_LOCALES - LOCALES_OCUPADOS;
   const porcentaje = Math.round((LOCALES_OCUPADOS / TOTAL_LOCALES) * 100);
   $("ocupacionTexto").innerText =
-    LOCALES_OCUPADOS + " de " + TOTAL_LOCALES +
-    " locales ocupados (" + porcentaje + "%)";
-  $("barraOcupacion").style.transition = "width 0.8s ease";
+    `${LOCALES_OCUPADOS} de ${TOTAL_LOCALES} locales ocupados (${porcentaje}%)`;
   $("barraOcupacion").style.width = porcentaje + "%";
-  if(porcentaje >= 90){
-    $("barraOcupacion").style.background = "#d32f2f";
-  } else if(porcentaje >= 70){
-    $("barraOcupacion").style.background = "#f9a825";
-  } else {
-    $("barraOcupacion").style.background = "#355e3b";
-  }
 }
 
 /* =========================
@@ -686,32 +634,48 @@ function actualizarOcupacion(){
 ========================= */
 function verificarHorario(){
   const ahora = new Date();
-  const horaActual = ahora.getHours();
-  const minutosActual = ahora.getMinutes();
-  const totalMin = horaActual * 60 + minutosActual;
-  const apertura = 8 * 60 + 30;
-  const cierre = 17 * 60;
+  const totalMin = ahora.getHours()*60 + ahora.getMinutes();
+  const apertura = 8*60 + 30;
+  const cierre = 17*60;
   const horaFormateada =
-    ahora.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    ahora.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+
   if(totalMin >= apertura && totalMin < cierre){
-    $("estado").innerHTML = "🟢 ABIERTO";
-    $("estado").style.color = "#2e7d32";
-    $("estadoHorario").innerHTML =
-      "Abierto ahora • Hora actual: " + horaFormateada;
-  } else {
-    $("estado").innerHTML = "🔴 CERRADO";
-    $("estado").style.color = "#c62828";
-    $("estadoHorario").innerHTML =
-      "Cerrado ahora • Hora actual: " + horaFormateada +
-      "<br>Horario: 8:30 AM - 5:00 PM";
+    $("estado").innerHTML="🟢 ABIERTO";
+    $("estadoHorario").innerHTML="Abierto ahora • " + horaFormateada;
+  }else{
+    $("estado").innerHTML="🔴 CERRADO";
+    $("estadoHorario").innerHTML="Cerrado ahora • " + horaFormateada;
   }
 }
 
 /* =========================
-   EVENTOS
+   PWA INSTALACIÓN
 ========================= */
-$("buscador").addEventListener("input",mostrar);
-$("filtro").addEventListener("change",mostrar);
+let deferredPrompt;
+const btnInstalar = $("btnInstalar");
+
+window.addEventListener("beforeinstallprompt", (e)=>{
+  e.preventDefault();
+  deferredPrompt = e;
+  btnInstalar.style.display="inline-block";
+});
+
+btnInstalar.addEventListener("click", async ()=>{
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    btnInstalar.style.display="none";
+  }
+});
+
+/* =========================
+   SERVICE WORKER
+========================= */
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js");
+}
 
 /* =========================
    INICIALIZAR
@@ -720,21 +684,7 @@ generarCategorias();
 mostrar();
 actualizarOcupacion();
 verificarHorario();
-setInterval(verificarHorario, 60000);
-
-/* =========================
-   MAPA INTERACTIVO
-========================= */
-const lat = 13.5211;
-const lng = -86.5665;
-const mapa = L.map('mapa').setView([lat, lng], 16);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
-  maxZoom: 19,
-}).addTo(mapa);
-L.marker([lat, lng]).addTo(mapa)
-  .bindPopup("<b>Mercado Artesanías Somoto</b><br>Centro de la ciudad")
-  .openPopup();
+setInterval(verificarHorario,60000);
 </script>
 
 </body>

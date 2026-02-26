@@ -408,8 +408,7 @@ line-height:1.5;
 
 <div class="product-grid" id="productGrid"></div>
 
-<div id="cartBtn">🛒<div id="cartCount">0</div></div>
-<div class="modal" id="productModal">
+<div id="cartBtn" onclick="irCarrito()">🛒<div id="cartCount">0</div></div><div class="modal" id="productModal">
   <div class="modalContent">
     <div class="modalBody">
       <img id="modalImg">
@@ -495,6 +494,7 @@ Productos confiables y de alta calidad.
   
   </div>
 </div>
+
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
   <a href="index.html" class="navItem">
@@ -543,10 +543,75 @@ LinS Agua Desmineralizada es un agua purificada a la que se le han eliminado min
 `},
 {name:"Raloy Transmisión Extrema Presión SAE 80W-90 API GL-5",price:250,cat:"motor",img:"65.jpeg",desc:`El aceite para transmisión Raloy 80W-90 GL-5 es un lubricante de alta calidad diseñado especialmente para transmisiones manuales y diferenciales que trabajan bajo condiciones de extrema presión y carga pesada.
 `},
+{name:"Shell Advance AX5 20W-50 4T",price:280,cat:"motor",img:"66.jpeg",desc:`Aceite mineral premium para motocicletas de 4 tiempos, formulado con tecnología de limpieza activa que ayuda a mantener el motor limpio y protegido durante el uso diario.
+`},
+{name:"Mobil Super Synthetic Blend 5W-3",price:300,cat:"motor",img:"67.jpeg",desc:`Aceite de motor semisintético diseñado para brindar buena protección contra el desgaste, los depósitos y ayudar a mantener el motor limpio para una mayor vida útil.
+`},
 ];
 
-let cart=[];
-let productoActual=null;
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let productoActual = null;
+
+const cartBtn = document.getElementById("cartBtn");
+const cartCount = document.getElementById("cartCount");
+
+cartBtn.addEventListener("click", openCart);
+cartCount.innerText = cart.length;
+
+function openCart(){
+  renderCart();
+  document.getElementById("cartModal").style.display="flex";
+}
+
+function closeCart(){
+  document.getElementById("cartModal").style.display="none";
+}
+
+function renderCart(){
+  const container = document.getElementById("cartItems");
+  container.innerHTML="";
+  let total=0;
+
+  cart.forEach((item,index)=>{
+    total += item.price;
+
+    container.innerHTML += `
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:center;">
+        <img src="${item.img}" style="width:60px;height:60px;object-fit:contain;background:#fff;border-radius:8px;">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">${item.name}</div>
+          <div style="font-size:12px;">C$${item.price}</div>
+        </div>
+        <button onclick="removeItem(${index})" style="background:#dc2626;color:#fff;border:none;border-radius:6px;padding:5px 8px;">X</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("cartTotal").innerText="Total: C$"+total;
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  cartCount.innerText=cart.length;
+  renderCart();
+}
+
+function addToCart(index){
+  cart.push(productos[index]);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  cartCount.innerText=cart.length;
+}
+
+function agregarDesdeModal(){
+  if(productoActual){
+    cart.push(productoActual);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    cartCount.innerText=cart.length;
+    closeProduct();
+  }
+}ductoActual=null;
 
 function mostrarProductos(){
 let cat=categoriaFiltro.value;
@@ -599,6 +664,9 @@ closeProduct();
 function addToCart(index){
 cart.push(productos[index]);
 cartCount.innerText=cart.length;
+}
+function irCarrito(){
+  window.location.href = "carritoYoluvami.html";
 }
 // MOSTRAR MODALES AL ENTRAR
 window.addEventListener("load", () => {

@@ -49,11 +49,6 @@ gap:15px;
 align-items:center;
 margin-bottom:18px;
 box-shadow:0 6px 18px rgba(0,0,0,.06);
-transition:.3s;
-}
-
-.cart-item:hover{
-transform:translateY(-3px);
 }
 
 .cart-item img{
@@ -64,9 +59,7 @@ border-radius:15px;
 background:#fff;
 }
 
-.item-info{
-flex:1;
-}
+.item-info{flex:1;}
 
 .item-info h4{
 margin:0;
@@ -78,7 +71,6 @@ font-weight:600;
 margin:8px 0 0;
 font-weight:700;
 color:var(--primary);
-font-size:15px;
 }
 
 .remove-btn{
@@ -123,36 +115,27 @@ background:linear-gradient(135deg,var(--primary),var(--primary-light));
 color:#fff;
 }
 
-.vaciar{
-background:#e5e7eb;
-}
-
-.regresar{
-background:#111827;
-color:#fff;
-}
+.vaciar{background:#e5e7eb;}
+.regresar{background:#111827;color:#fff;}
 
 .empty{
 text-align:center;
 padding:40px 0;
 color:#6b7280;
-font-weight:500;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-🛒 Carrito YOLUVAMI
-</header>
+<header>🛒 Carrito YOLUVAMI</header>
 
 <div class="container">
 <div id="cartItems"></div>
 <div id="cartTotal" class="total"></div>
 
 <div class="actions">
-<button class="btn pagar">Proceder al pedido</button>
+<button class="btn pagar" onclick="procesarPedido()">Proceder al pedido</button>
 <button class="btn vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
 <button class="btn regresar" onclick="volver()">Regresar</button>
 </div>
@@ -161,30 +144,27 @@ font-weight:500;
 <script>
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
-const btnPagar = document.querySelector(".pagar");
 
-// ⚠️ CAMBIÁ ESTE NÚMERO POR EL TUYO (con código país sin +)
-const numeroWhatsApp = "50582337242"; 
+const numeroWhatsApp = "50582337242";
 
 function renderCart(){
-cartItems.innerHTML = "";
-let total = 0;
+cartItems.innerHTML="";
+let total=0;
 
-if(cart.length === 0){
-cartItems.innerHTML = `<div class="empty">Tu carrito está vacío 🛍️</div>`;
-cartTotal.innerHTML = "";
+if(cart.length===0){
+cartItems.innerHTML=`<div class="empty">Tu carrito está vacío 🛍️</div>`;
+cartTotal.innerHTML="";
 return;
 }
 
 cart.forEach((item,index)=>{
-total += item.price;
+total+=item.price;
 
-cartItems.innerHTML += `
+cartItems.innerHTML+=`
 <div class="cart-item">
-<img src="${item.img}" alt="${item.name}">
+<img src="${item.img}">
 <div class="item-info">
 <h4>${item.name}</h4>
 <p>C$${item.price}</p>
@@ -194,57 +174,103 @@ cartItems.innerHTML += `
 `;
 });
 
-cartTotal.innerHTML = "Total a pagar: C$" + total;
+cartTotal.innerHTML="Total a pagar: C$"+total;
 }
 
 function removeItem(index){
 cart.splice(index,1);
-localStorage.setItem("cart", JSON.stringify(cart));
+localStorage.setItem("cart",JSON.stringify(cart));
 renderCart();
 }
 
 function vaciarCarrito(){
 localStorage.removeItem("cart");
-cart = [];
+cart=[];
 renderCart();
 }
 
 function volver(){
-window.location.href = "yoluvami.html";
+window.location.href="yoluvami.html";
 }
 
-/* ========================= */
-/* PROCEDER AL PEDIDO */
-/* ========================= */
+async function procesarPedido(){
 
-btnPagar.addEventListener("click", function(){
-
-if(cart.length === 0){
+if(cart.length===0){
 alert("Tu carrito está vacío 🛒");
 return;
 }
 
-let mensaje = "🛒 *Nuevo pedido YOLUVAMI* %0A%0A";
-let total = 0;
+let total=0;
+let numeroOrden="ORD-"+Date.now();
 
-cart.forEach((item, index)=>{
-mensaje += `• ${item.name} - C$${item.price}%0A`;
-total += item.price;
+let canvas=document.createElement("canvas");
+canvas.width=800;
+canvas.height=1000;
+let ctx=canvas.getContext("2d");
+
+// Fondo
+ctx.fillStyle="#ffffff";
+ctx.fillRect(0,0,800,1000);
+
+// Encabezado
+ctx.fillStyle="#1e3a8a";
+ctx.font="bold 40px Poppins";
+ctx.fillText("YOLUVAMI AUTOPARTES",80,80);
+
+ctx.fillStyle="#000";
+ctx.font="20px Poppins";
+ctx.fillText("Factura de Compra",80,120);
+ctx.fillText("Orden: "+numeroOrden,80,160);
+ctx.fillText("Fecha: "+new Date().toLocaleDateString(),500,160);
+
+let y=220;
+
+for(let item of cart){
+
+ctx.font="bold 22px Poppins";
+ctx.fillText(item.name,80,y);
+
+ctx.font="20px Poppins";
+ctx.fillText("C$"+item.price,600,y);
+
+total+=item.price;
+y+=40;
+
+}
+
+y+=40;
+
+ctx.fillStyle="#1e3a8a";
+ctx.font="bold 28px Poppins";
+ctx.fillText("TOTAL: C$"+total,500,y);
+
+y+=60;
+
+ctx.fillStyle="#000";
+ctx.font="18px Poppins";
+ctx.fillText("Gracias por confiar en YOLUVAMI 🙌",200,y);
+
+// Descargar imagen
+let link=document.createElement("a");
+link.download="Factura_YOLUVAMI_"+numeroOrden+".png";
+link.href=canvas.toDataURL();
+link.click();
+
+// WhatsApp
+let mensaje="🛒 *Nuevo Pedido YOLUVAMI* %0A%0A";
+cart.forEach(p=>{
+mensaje+="• "+p.name+" - C$"+p.price+"%0A";
 });
+mensaje+="%0A💰 *Total: C$"+total+"*";
 
-mensaje += `%0A💰 *Total: C$${total}*%0A%0A`;
-mensaje += "📍 Quiero coordinar entrega.";
+let url=`https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+window.open(url,"_blank");
 
-let url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
-
-window.open(url, "_blank");
-
-});
-
-/* ========================= */
+}
 
 renderCart();
 
 </script>
+
 </body>
 </html>

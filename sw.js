@@ -1,4 +1,4 @@
-const CACHE_NAME = "mercado-somoto-v1";
+const CACHE_NAME = "La-Plaza-v1";
 
 const urlsToCache = [
   "index.html",

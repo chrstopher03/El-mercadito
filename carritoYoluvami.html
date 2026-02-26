@@ -164,6 +164,10 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartItems = document.getElementById("cartItems");
 const cartTotal = document.getElementById("cartTotal");
+const btnPagar = document.querySelector(".pagar");
+
+// ⚠️ CAMBIÁ ESTE NÚMERO POR EL TUYO (con código país sin +)
+const numeroWhatsApp = "50582337242"; 
 
 function renderCart(){
 cartItems.innerHTML = "";
@@ -209,9 +213,38 @@ function volver(){
 window.location.href = "yoluvami.html";
 }
 
+/* ========================= */
+/* PROCEDER AL PEDIDO */
+/* ========================= */
+
+btnPagar.addEventListener("click", function(){
+
+if(cart.length === 0){
+alert("Tu carrito está vacío 🛒");
+return;
+}
+
+let mensaje = "🛒 *Nuevo pedido YOLUVAMI* %0A%0A";
+let total = 0;
+
+cart.forEach((item, index)=>{
+mensaje += `• ${item.name} - C$${item.price}%0A`;
+total += item.price;
+});
+
+mensaje += `%0A💰 *Total: C$${total}*%0A%0A`;
+mensaje += "📍 Quiero coordinar entrega.";
+
+let url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+window.open(url, "_blank");
+
+});
+
+/* ========================= */
+
 renderCart();
 
 </script>
-
 </body>
 </html>

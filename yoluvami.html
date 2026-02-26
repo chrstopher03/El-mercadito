@@ -494,7 +494,27 @@ Productos confiables y de alta calidad.
   
   </div>
 </div>
+<!-- MODAL PROMOCIÓN / IMAGEN -->
+<div class="modal" id="promoModal">
+  <div class="modalContent" style="max-width:400px;text-align:center;padding:25px;">
+    
+    <!-- IMAGEN CENTRADA (AQUÍ CAMBIAS LA IMAGEN) -->
+    <div style="display:flex;justify-content:center;align-items:center;margin-bottom:15px;">
+      <img src="68.jpeg" 
+           alt="Promoción" 
+           style="width:100%;max-width:280px;border-radius:12px;object-fit:contain;">
+    </div>
 
+    <h3 style="margin:5px 0;">Regalias para nuestros clientes</h3>
+    
+    <p style="font-size:13px;color:#555;margin-bottom:18px;line-height:1.5;">
+      Aprovecha nuestras ofertas exclusivas.
+    </p>
+
+    <button class="modalBtn" onclick="cerrarPromo()">Entendido</button>
+  
+  </div>
+</div>
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
   <a href="index.html" class="navItem">
@@ -519,45 +539,51 @@ Productos confiables y de alta calidad.
   </a>
 </nav>
 
-<script>
-const productos=[
+<script>const productos = [
 {name:"Aceite 15W40",price:1060,cat:"motor",img:"30.jpeg",desc:"Mobil Special 20W-50 es un aceite mineral de alta calidad diseñado para brindar protección confiable al motor en condiciones de trabajo exigentes. Su fórmula ayuda a reducir el desgaste y mantener el motor limpio, prolongando su vida útil."},
 {name:"CLEAN ALL",price:180,cat:"motor",img:"39.jpeg",desc:`Es un limpiador espumoso multiusos diseñado especialmente para la limpieza interior y exterior de vehículos. 
 Su poderosa fórmula en espuma penetra profundamente en la suciedad, ayudando a remover manchas difíciles, polvo y grasa sin dañar las superficies.
 Viene en presentación de 650 ml, ideal tanto para uso profesional en talleres y autolavados como para uso doméstico.`},
-{name:"Freezetone - Engine Radiator Additiv",price:230,cat:"motor",img:"40.jpeg",desc:`Aditivo / Refrigerante para Radiador
-Freezetone es un aditivo para radiador de alto rendimiento, formulado con tecnología de larga duración para proteger y optimizar el sistema de enfriamiento del motor. Diseñado para mantener la temperatura adecuada y prevenir el sobrecalentamiento, incluso en condiciones exigentes.`},
-{name:"Freezetone – Refrigerante Rojo Long Life",price:230,cat:"motor",img:"41.jpeg",desc:`El Freezetone Rojo es un refrigerante de larga duración formulado con tecnología avanzada para brindar máxima protección al sistema de enfriamiento del motor. Diseñado para vehículos modernos, ofrece mayor resistencia contra la corrosión y el sobrecalentamiento.`},
-{name:"Flamingo Foam Cleaner – Limpiador Espumoso Multiusos",price:150,cat:"motor",img:"44.jpeg",desc:`Flamingo Foam Cleaner es un limpiador espumoso multiuso diseñado para la limpieza profunda del interior del vehículo. Su fórmula en espuma activa penetra en las superficies, ayudando a desprender la suciedad, grasa y manchas difíciles de forma rápida y efectiva.`},
-{name:"Coolzone Battery Water – Agua Desmineralizada para Batería",price:100,cat:"motor",img:"51.jpeg",desc:`Coolzone Battery Water es agua desmineralizada especialmente formulada para el mantenimiento de baterías automotrices. Es un producto listo para usar, libre de minerales e impurezas que puedan dañar los componentes internos de la batería.`},
-{name:"Agua Desmineralizada",price:80,cat:"motor",img:"52.jpeg",desc:`
-LinS Agua Desmineralizada es un agua purificada a la que se le han eliminado minerales, sales e impurezas. Está diseñada para usos técnicos y automotrices donde se requiere agua libre de residuos que puedan dañar equipos o componentes.
-`},
-{name:" Swiss Drive Accordion Front Sun Shade – Parasol Delantero Plegable",price:260,cat:"motor",img:"53.jpeg",desc:`El Swiss Drive Accordion Front Sun Shade es un parasol delantero plegable tipo acordeón diseñado para proteger el interior del vehículo de los rayos solares. Está fabricado con material reflectivo tipo aluminio con textura burbuja que ayuda a bloquear el calor y la radiación UV.
-`},
-{name:"Aceite de motor 4T Yamalube 20W-50 (1L)",price:270,cat:"motor",img:"61.jpeg",desc:`Lubricante mineral de alto rendimiento diseñado para motores de 4 tiempos. Ayuda a proteger las piezas internas del motor, reduce la fricción y mejora el desempeño incluso en condiciones de trabajo exigentes. Su fórmula contribuye a mantener el motor limpio, prolongar su vida útil y asegurar un funcionamiento suave.
-`},
-{name:"Havoline 2-Cycle Engine Oil TC-W3 – Chevron",price:330,cat:"motor",img:"62.jpeg",desc:`El Havoline 2-Cycle Engine Oil TC-W3 de Chevron es un aceite especialmente formulado para motores de 2 tiempos (2T), principalmente motores fuera de borda y equipos que funcionan con mezcla de gasolina y aceite.
-`},
-{name:"Aceite de Motor Havoline Synblend SAE 20W-50",price:1100,cat:"motor",img:"64.jpeg",desc:`Lubricante semisintético para motores a gasolina que ayuda a proteger contra el desgaste, mantener el motor limpio y ofrecer un rendimiento confiable en diferentes condiciones de manejo.
-`},
-{name:"Raloy Transmisión Extrema Presión SAE 80W-90 API GL-5",price:250,cat:"motor",img:"65.jpeg",desc:`El aceite para transmisión Raloy 80W-90 GL-5 es un lubricante de alta calidad diseñado especialmente para transmisiones manuales y diferenciales que trabajan bajo condiciones de extrema presión y carga pesada.
-`},
-{name:"Shell Advance AX5 20W-50 4T",price:280,cat:"motor",img:"66.jpeg",desc:`Aceite mineral premium para motocicletas de 4 tiempos, formulado con tecnología de limpieza activa que ayuda a mantener el motor limpio y protegido durante el uso diario.
-`},
-{name:"Mobil Super Synthetic Blend 5W-3",price:300,cat:"motor",img:"67.jpeg",desc:`Aceite de motor semisintético diseñado para brindar buena protección contra el desgaste, los depósitos y ayudar a mantener el motor limpio para una mayor vida útil.
-`},
+{name:"Freezetone - Engine Radiator Additiv",price:230,cat:"motor",img:"40.jpeg",desc:`Aditivo / Refrigerante para Radiador de alto rendimiento, formulado con tecnología de larga duración para proteger y optimizar el sistema de enfriamiento del motor.`},
+{name:"Freezetone – Refrigerante Rojo Long Life",price:230,cat:"motor",img:"41.jpeg",desc:`Refrigerante de larga duración con tecnología avanzada para máxima protección contra corrosión y sobrecalentamiento.`},
+{name:"Flamingo Foam Cleaner – Limpiador Espumoso Multiusos",price:150,cat:"motor",img:"44.jpeg",desc:`Limpiador espumoso multiuso para limpieza profunda del interior del vehículo.`},
+{name:"Coolzone Battery Water – Agua Desmineralizada para Batería",price:100,cat:"motor",img:"51.jpeg",desc:`Agua desmineralizada lista para usar, libre de minerales e impurezas.`},
+{name:"Agua Desmineralizada",price:80,cat:"motor",img:"52.jpeg",desc:`Agua purificada sin minerales para usos técnicos y automotrices.`},
+{name:"Swiss Drive Accordion Front Sun Shade – Parasol Delantero Plegable",price:260,cat:"motor",img:"53.jpeg",desc:`Parasol delantero reflectivo que bloquea calor y rayos UV.`},
+{name:"Aceite de motor 4T Yamalube 20W-50 (1L)",price:270,cat:"motor",img:"61.jpeg",desc:`Lubricante mineral de alto rendimiento para motores 4 tiempos.`},
+{name:"Havoline 2-Cycle Engine Oil TC-W3 – Chevron",price:330,cat:"motor",img:"62.jpeg",desc:`Aceite formulado para motores 2 tiempos (2T).`},
+{name:"Aceite de Motor Havoline Synblend SAE 20W-50",price:1100,cat:"motor",img:"64.jpeg",desc:`Lubricante semisintético para motores a gasolina.`},
+{name:"Raloy Transmisión Extrema Presión SAE 80W-90 API GL-5",price:250,cat:"motor",img:"65.jpeg",desc:`Aceite para transmisión diseñado para condiciones de extrema presión.`},
+{name:"Shell Advance AX5 20W-50 4T",price:280,cat:"motor",img:"66.jpeg",desc:`Aceite mineral premium para motocicletas 4T.`},
+{name:"Mobil Super Synthetic Blend 5W-30",price:300,cat:"motor",img:"67.jpeg",desc:`Aceite semisintético con protección avanzada.`},
 ];
-
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let productoActual = null;
 
+/* ELEMENTOS */
 const cartBtn = document.getElementById("cartBtn");
 const cartCount = document.getElementById("cartCount");
+const productGrid = document.getElementById("productGrid");
+const categoriaFiltro = document.getElementById("categoriaFiltro");
+const precioMin = document.getElementById("precioMin");
+const precioMax = document.getElementById("precioMax");
+
+const productModal = document.getElementById("productModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDesc = document.getElementById("modalDesc");
+const modalPrice = document.getElementById("modalPrice");
+const modalImg = document.getElementById("modalImg");
+
+const statusElement = document.getElementById("status");
+
+/* ===================== */
+/* CARRITO */
+/* ===================== */
+
+cartCount.innerText = cart.length;
 
 cartBtn.addEventListener("click", openCart);
-cartCount.innerText = cart.length;
 
 function openCart(){
   renderCart();
@@ -575,7 +601,6 @@ function renderCart(){
 
   cart.forEach((item,index)=>{
     total += item.price;
-
     container.innerHTML += `
       <div style="display:flex;gap:10px;margin-bottom:12px;align-items:center;">
         <img src="${item.img}" style="width:60px;height:60px;object-fit:contain;background:#fff;border-radius:8px;">
@@ -611,64 +636,63 @@ function agregarDesdeModal(){
     cartCount.innerText=cart.length;
     closeProduct();
   }
-}ductoActual=null;
-
-function mostrarProductos(){
-let cat=categoriaFiltro.value;
-let min=precioMin.value;
-let max=precioMax.value;
-productGrid.innerHTML="";
-productos.filter(p=>
-(cat==="todos"||p.cat===cat)&&
-(!min||p.price>=min)&&
-(!max||p.price<=max)
-).forEach((p,index)=>{
-productGrid.innerHTML+=`
-<div class="product">
-<img src="${p.img}" data-id="${index}">
-<div class="product-body">
-<h4>${p.name}</h4>
-<div class="price">C$${p.price}</div>
-<button onclick="addToCart(${index})">Agregar</button>
-</div>
-</div>`;
-});
-document.querySelectorAll(".product img").forEach(img=>{
-img.addEventListener("click",function(){
-productoActual=productos[this.dataset.id];
-verProducto(productoActual);
-});
-});
 }
 
-function verProducto(p){
-modalTitle.innerText=p.name;
-modalDesc.innerText=p.desc||"Sin descripción.";
-modalPrice.innerText="C$"+p.price;
-modalImg.src=p.img;
-productModal.style.display="flex";
-}
-
-function closeProduct(){productModal.style.display="none";}
-function openInfo(){infoModal.style.display="flex";}
-function closeInfo(){infoModal.style.display="none";}
-
-function agregarDesdeModal(){
-if(productoActual){
-cart.push(productoActual);
-cartCount.innerText=cart.length;
-closeProduct();
-}
-}
-
-function addToCart(index){
-cart.push(productos[index]);
-cartCount.innerText=cart.length;
-}
 function irCarrito(){
   window.location.href = "carritoYoluvami.html";
 }
-// MOSTRAR MODALES AL ENTRAR
+
+/* ===================== */
+/* PRODUCTOS */
+/* ===================== */
+
+function mostrarProductos(){
+  let cat=categoriaFiltro.value;
+  let min=precioMin.value;
+  let max=precioMax.value;
+
+  productGrid.innerHTML="";
+
+  productos.filter(p=>
+    (cat==="todos"||p.cat===cat)&&
+    (!min||p.price>=min)&&
+    (!max||p.price<=max)
+  ).forEach((p,index)=>{
+    productGrid.innerHTML+=`
+    <div class="product">
+      <img src="${p.img}" data-id="${index}">
+      <div class="product-body">
+        <h4>${p.name}</h4>
+        <div class="price">C$${p.price}</div>
+        <button onclick="addToCart(${index})">Agregar</button>
+      </div>
+    </div>`;
+  });
+
+  document.querySelectorAll(".product img").forEach(img=>{
+    img.addEventListener("click",function(){
+      productoActual=productos[this.dataset.id];
+      verProducto(productoActual);
+    });
+  });
+}
+
+function verProducto(p){
+  modalTitle.innerText=p.name;
+  modalDesc.innerText=p.desc||"Sin descripción.";
+  modalPrice.innerText="C$"+p.price;
+  modalImg.src=p.img;
+  productModal.style.display="flex";
+}
+
+function closeProduct(){
+  productModal.style.display="none";
+}
+
+/* ===================== */
+/* MODALES AUTOMÁTICOS */
+/* ===================== */
+
 window.addEventListener("load", () => {
   setTimeout(() => {
     document.getElementById("bienvenidaModal").style.display = "flex";
@@ -677,57 +701,62 @@ window.addEventListener("load", () => {
 
 function cerrarBienvenida(){
   document.getElementById("bienvenidaModal").style.display = "none";
-  
-  setTimeout(()=>{
-    document.getElementById("tiktokModal").style.display = "flex";
-  }, 400);
+  setTimeout(()=>{document.getElementById("tiktokModal").style.display = "flex";},400);
 }
 
 function cerrarTiktok(){
   document.getElementById("tiktokModal").style.display = "none";
+  setTimeout(()=>{document.getElementById("promoModal").style.display = "flex";},400);
+}
+
+function cerrarPromo(){
+  document.getElementById("promoModal").style.display = "none";
 }
 
 function seguirAhora(){
   window.open("https://www.tiktok.com/@yoluvami_autopart?_r=1&_t=ZS-94EaAHGjUhk", "_blank");
 }
-/* HORARIO AUTOMÁTICO NICARAGUA */
-const statusElement = document.getElementById("status");
+
+/* ===================== */
+/* HORARIO NICARAGUA */
+/* ===================== */
 
 function actualizarEstado(){
-const ahora = new Date();
-const opciones = { timeZone: 'America/Managua', hour12: false };
-const horaNica = new Date(ahora.toLocaleString('en-US', opciones));
+  const ahora = new Date();
+  const opciones = { timeZone: 'America/Managua', hour12: false };
+  const horaNica = new Date(ahora.toLocaleString('en-US', opciones));
 
-const hora = horaNica.getHours();
-const minutos = horaNica.getMinutes();
-const totalMinutos = hora * 60 + minutos;
+  const hora = horaNica.getHours();
+  const minutos = horaNica.getMinutes();
+  const totalMinutos = hora * 60 + minutos;
 
-const apertura = 8 * 60 + 30; // 8:30 AM
-const cierre = 16 * 60;       // 4:00 PM
+  const apertura = 8 * 60 + 30;
+  const cierre = 16 * 60;
 
-if(totalMinutos >= apertura && totalMinutos < cierre){
-const faltan = cierre - totalMinutos;
-const h = Math.floor(faltan / 60);
-const m = faltan % 60;
-statusElement.innerHTML = `🟢 Abierto · Cierra en ${h}h ${m}m`;
-statusElement.className = "status abierto";
-}else{
-let faltan;
-if(totalMinutos < apertura){
-faltan = apertura - totalMinutos;
-}else{
-faltan = (24 * 60 - totalMinutos) + apertura;
-}
-const h = Math.floor(faltan / 60);
-const m = faltan % 60;
-statusElement.innerHTML = `🔴 Cerrado · Abre en ${h}h ${m}m`;
-statusElement.className = "status cerrado";
-}
+  if(totalMinutos >= apertura && totalMinutos < cierre){
+    const faltan = cierre - totalMinutos;
+    const h = Math.floor(faltan / 60);
+    const m = faltan % 60;
+    statusElement.innerHTML = `🟢 Abierto · Cierra en ${h}h ${m}m`;
+    statusElement.className = "status abierto";
+  }else{
+    let faltan;
+    if(totalMinutos < apertura){
+      faltan = apertura - totalMinutos;
+    }else{
+      faltan = (24 * 60 - totalMinutos) + apertura;
+    }
+    const h = Math.floor(faltan / 60);
+    const m = faltan % 60;
+    statusElement.innerHTML = `🔴 Cerrado · Abre en ${h}h ${m}m`;
+    statusElement.className = "status cerrado";
+  }
 }
 
 setInterval(actualizarEstado,60000);
 actualizarEstado();
 
+/* FILTROS */
 categoriaFiltro.addEventListener("change",mostrarProductos);
 precioMin.addEventListener("input",mostrarProductos);
 precioMax.addEventListener("input",mostrarProductos);

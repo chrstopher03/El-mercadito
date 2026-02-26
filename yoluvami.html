@@ -450,7 +450,51 @@ Productos confiables y de alta calidad.
 </div>
 </div>
 </div>
+<!-- MODAL BIENVENIDA -->
+<div class="modal" id="bienvenidaModal">
+  <div class="modalContent" style="max-width:400px;text-align:center;padding:25px;">
+    
+    <h2 style="margin-top:0;">👋 Bienvenidos</h2>
+    
+    <p style="font-size:14px;line-height:1.6;">
+      Bienvenidos a <strong>YOLUVAMI</strong>, un sitio donde te ofrecemos 
+      lubricantes y mucho más para tu vehículo.
+    </p>
 
+    <button class="modalBtn" onclick="cerrarBienvenida()">Continuar</button>
+  
+  </div>
+</div>
+
+
+
+<!-- MODAL TIKTOK -->
+<div class="modal" id="tiktokModal">
+  <div class="modalContent" style="max-width:400px;text-align:center;padding:25px;">
+    
+    <!-- IMAGEN CENTRADA -->
+    <div style="display:flex;justify-content:center;align-items:center;margin-bottom:15px;">
+      <img src="60.avif" 
+           alt="TikTok" 
+           style="width:90px;height:90px;object-fit:contain;">
+    </div>
+
+    <h3 style="margin:5px 0;">Síguenos en TikTok</h3>
+    
+    <p style="font-size:12px;color:#555;margin-bottom:18px;line-height:1.5;">
+      Síguenos para que estés al tanto de nuestros productos para tu vehículo.
+    </p>
+
+    <button class="modalBtn" onclick="seguirAhora()">Seguir ahora</button>
+    
+    <button class="modalBtn" 
+            style="background:#e5e7eb;color:#111;margin-top:8px;"
+            onclick="cerrarTiktok()">
+      Quizás más tarde
+    </button>
+  
+  </div>
+</div>
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
   <a href="index.html" class="navItem">
@@ -490,6 +534,10 @@ Freezetone es un aditivo para radiador de alto rendimiento, formulado con tecnol
 LinS Agua Desmineralizada es un agua purificada a la que se le han eliminado minerales, sales e impurezas. Está diseñada para usos técnicos y automotrices donde se requiere agua libre de residuos que puedan dañar equipos o componentes.
 `},
 {name:" Swiss Drive Accordion Front Sun Shade – Parasol Delantero Plegable",price:260,cat:"motor",img:"53.jpeg",desc:`El Swiss Drive Accordion Front Sun Shade es un parasol delantero plegable tipo acordeón diseñado para proteger el interior del vehículo de los rayos solares. Está fabricado con material reflectivo tipo aluminio con textura burbuja que ayuda a bloquear el calor y la radiación UV.
+`},
+{name:"Aceite de motor 4T Yamalube 20W-50 (1L)",price:270,cat:"motor",img:"61.jpeg",desc:`Lubricante mineral de alto rendimiento diseñado para motores de 4 tiempos. Ayuda a proteger las piezas internas del motor, reduce la fricción y mejora el desempeño incluso en condiciones de trabajo exigentes. Su fórmula contribuye a mantener el motor limpio, prolongar su vida útil y asegurar un funcionamiento suave.
+`},
+{name:"Havoline 2-Cycle Engine Oil TC-W3 – Chevron",price:330,cat:"motor",img:"62.jpeg",desc:`El Havoline 2-Cycle Engine Oil TC-W3 de Chevron es un aceite especialmente formulado para motores de 2 tiempos (2T), principalmente motores fuera de borda y equipos que funcionan con mezcla de gasolina y aceite.
 `},
 ];
 
@@ -548,7 +596,28 @@ function addToCart(index){
 cart.push(productos[index]);
 cartCount.innerText=cart.length;
 }
+// MOSTRAR MODALES AL ENTRAR
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("bienvenidaModal").style.display = "flex";
+  }, 800);
+});
 
+function cerrarBienvenida(){
+  document.getElementById("bienvenidaModal").style.display = "none";
+  
+  setTimeout(()=>{
+    document.getElementById("tiktokModal").style.display = "flex";
+  }, 400);
+}
+
+function cerrarTiktok(){
+  document.getElementById("tiktokModal").style.display = "none";
+}
+
+function seguirAhora(){
+  window.open("https://www.tiktok.com/@yoluvami_autopart?_r=1&_t=ZS-94EaAHGjUhk", "_blank");
+}
 /* HORARIO AUTOMÁTICO NICARAGUA */
 const statusElement = document.getElementById("status");
 

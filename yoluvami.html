@@ -515,6 +515,29 @@ Productos confiables y de alta calidad.
   
   </div>
 </div>
+<div id="deliveryBtn" onclick="abrirDelivery()" 
+     style="position:fixed;right:18px;bottom:180px;background:#1e3a8a;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 10px 25px rgba(0,0,0,.3);z-index:1500;cursor:pointer;">
+  🚚
+</div>
+<!-- MODAL DELIVERY -->
+<div class="modal" id="deliveryModal">
+  <div class="modalContent">
+    <div class="modalBody" style="text-align:center;">
+      <h3 style="margin-bottom:12px;">🚚 Servicio a Domicilio</h3>
+      <img src="23.jpeg" alt="Delivery" style="width:120px;height:120px;object-fit:contain;margin-bottom:12px;">
+      <p style="font-size:14px;line-height:1.5;margin-bottom:12px;">
+        Entregamos tus productos <strong>en todo Somoto</strong> directamente a tu domicilio.
+        Solo realiza tu pedido y nosotros nos encargamos del resto.
+      </p>
+      <p style="font-size:13px;color:#555;margin-bottom:20px;">
+        Tiempo estimado de entrega: <strong>20 minutos hábiles</strong>. 
+        Aplican cargos según la ubicación.
+      </p>
+      <button class="modalBtn" onclick="contactarDelivery()">Contactar Delivery</button>
+      <button class="modalBtn" style="background:#e5e7eb;color:#111;margin-top:8px;" onclick="cerrarDelivery()">Cerrar</button>
+    </div>
+  </div>
+</div>
 <!-- BARRA INFERIOR -->
 <nav class="bottomNav">
   <a href="index.html" class="navItem">
@@ -555,7 +578,8 @@ Viene en presentación de 650 ml, ideal tanto para uso profesional en talleres y
 {name:"Aceite de Motor Havoline Synblend SAE 20W-50",price:1100,cat:"motor",img:"64.jpeg",desc:`Lubricante semisintético para motores a gasolina.`},
 {name:"Raloy Transmisión Extrema Presión SAE 80W-90 API GL-5",price:250,cat:"motor",img:"65.jpeg",desc:`Aceite para transmisión diseñado para condiciones de extrema presión.`},
 {name:"Shell Advance AX5 20W-50 4T",price:280,cat:"motor",img:"66.jpeg",desc:`Aceite mineral premium para motocicletas 4T.`},
-{name:"Mobil Super Synthetic Blend 5W-30",price:300,cat:"motor",img:"67.jpeg",desc:`Aceite semisintético con protección avanzada.`},
+{name:"Mobil Delvac 1300 Super 10W-30",price:1350,cat:"motor",img:"75.jpeg",desc:`Aceite premium sintético para motores diésel, diseñado para ofrecer mayor protección, limpieza y rendimiento en motores de trabajo pesado`},
+{name:"Shell Helix HX5 20W-50",price:1200,cat:"motor",img:"76.jpeg",desc:`Aceite multigrado para motores a gasolina que ayuda a mantener el motor limpio y protegido gracias a su tecnología de limpieza activa.o`},
 ];
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -641,7 +665,25 @@ function agregarDesdeModal(){
 function irCarrito(){
   window.location.href = "carritoYoluvami.html";
 }
+/* MODAL INFO */
+function openInfo(){
+  document.getElementById("infoModal").style.display = "flex";
+}
 
+function closeInfo(){
+  document.getElementById("infoModal").style.display = "none";
+}
+/* MODAL DELIVERY */
+function abrirDelivery(){
+  document.getElementById("deliveryModal").style.display="flex";
+}
+function cerrarDelivery(){
+  document.getElementById("deliveryModal").style.display="none";
+}
+function contactarDelivery(){
+  const texto = "Hola 👋, quiero solicitar el servicio de delivery para mi pedido en Somoto.";
+  window.open(`https://wa.me/50583320030?text=${encodeURIComponent(texto)}`, '_blank');
+}
 /* ===================== */
 /* PRODUCTOS */
 /* ===================== */

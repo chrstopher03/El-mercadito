@@ -461,53 +461,62 @@ Especialista en productos tipicos Nicaraguenses.
 <script>
 
 const productos=[
-{name:"Tequileros de Madera",price:90,cat:"Tequileros",img:"45.jpeg",desc:""},
-{name:"Taza de madera",price:150,cat:"tazas",img:"69.jpeg"},
-{name:"Muñeca Tipica",price:220,cat:"Muñecas",img:"72.jpeg"},
-{name:"Adorno Para la Pared",price:300,cat:"industrial",img:"73.jpeg"},
-{name:"LLavero",price:30,cat:"LLavero",img:"74.jpeg"},
-{name:"LLavero",price:30,cat:"LLavero",img:"77.jpeg"}
-
+{name:"Tequileros de Madera",cat:"Tequileros",img:"45.jpeg",desc:""},
+{name:"Taza de madera",cat:"tazas",img:"69.jpeg"},
+{name:"Muñeca Tipica",cat:"Muñecas",img:"72.jpeg"},
+{name:"Adorno Para la Pared",cat:"industrial",img:"73.jpeg"},
+{name:"LLavero",cat:"LLavero",img:"74.jpeg"},
+{name:"LLavero",cat:"LLavero",img:"77.jpeg"},
+{name:"Muñeca Tipica",cat:"Muñecas",img:"85.jpeg"},
+{name:"Adorno Para la Pared",cat:"industrial",img:"86.jpeg"},
+{name:"LLavero",cat:"LLavero",img:"87.jpeg"},
+{name:"LLavero",cat:"LLavero",img:"88.jpeg"},
 
 ];
-
 let cart=[];
 let productoActual=null;
 
 function mostrarProductos(){
-let cat=categoriaFiltro.value;
-let min=precioMin.value;
-let max=precioMax.value;
-productGrid.innerHTML="";
-productos.filter(p=>
-(cat==="todos"||p.cat===cat)&&
-(!min||p.price>=min)&&
-(!max||p.price<=max)
-).forEach((p,index)=>{
-productGrid.innerHTML+=`
-<div class="product">
-<img src="${p.img}" data-id="${index}">
-<div class="product-body">
-<h4>${p.name}</h4>
-<div class="price">C$${p.price}</div>
-<button onclick="addToCart(${index})">Agregar</button>
-</div>
-</div>`;
-});
-document.querySelectorAll(".product img").forEach(img=>{
-img.addEventListener("click",function(){
-productoActual=productos[this.dataset.id];
-verProducto(productoActual);
-});
-});
+  let cat=categoriaFiltro.value;
+  let min=precioMin.value;
+  let max=precioMax.value;
+  productGrid.innerHTML="";
+
+  productos
+  .filter(p =>
+    (cat==="todos"||p.cat===cat) &&
+    (!min||p.price>=min) &&
+    (!max||p.price<=max)
+  )
+  .forEach((p,index)=>{
+    productGrid.innerHTML+=`
+      <div class="product">
+        <img src="${p.img}" data-id="${index}">
+        <div class="product-body">
+          <h4>${p.name}</h4>
+          <button onclick="addToCart(${index})">Agregar</button>
+        </div>
+      </div>
+    `;
+  });
+
+  document.querySelectorAll(".product img").forEach(img=>{
+    img.addEventListener("click",function(){
+      productoActual=productos[this.dataset.id];
+      verProducto(productoActual);
+    });
+  });
 }
 
 function verProducto(p){
-modalTitle.innerText=p.name;
-modalDesc.innerText=p.desc||"Sin descripción.";
-modalPrice.innerText="C$"+p.price;
-modalImg.src=p.img;
-productModal.style.display="flex";
+  modalTitle.innerText=p.name;
+  modalDesc.innerText=p.desc||"Sin descripción.";
+  modalImg.src=p.img;
+
+  // 🔥 Ya no mostramos precio en el modal
+  modalPrice.innerText="";
+
+  productModal.style.display="flex";
 }
 
 function closeProduct(){productModal.style.display="none";}

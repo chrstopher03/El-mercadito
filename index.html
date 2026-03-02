@@ -515,7 +515,47 @@ Plataforma digital cultural – Somoto, Madriz – Nicaragua
   </a>
 
 </nav>
+<!-- 🔐 BLOQUEO TOTAL ADMIN -->
+<div id="bloqueoTotal" style="
+position:fixed;
+inset:0;
+background:#f4f7fb;
+z-index:99999;
+display:flex;
+justify-content:center;
+align-items:center;
+">
 
+  <div style="
+  background:white;
+  padding:35px;
+  border-radius:25px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+  ">
+    
+    <h2 style="color:#355e3b;">🔧 Sistema en Mantenimiento</h2>
+    <p style="margin:15px 0;">
+      Hola 👋 Bienvenido a la aplicación del 
+      <strong>Mercado de Artesanías</strong>.
+      <br><br>
+      En estos momentos el sistema se encuentra en mantenimiento.
+    </p>
+
+    <input type="password" id="claveAdmin"
+    placeholder="Clave de Administrador"
+    style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc;">
+
+    <button onclick="verificarAdmin()" 
+    style="margin-top:15px;padding:12px 20px;background:#355e3b;color:white;border:none;border-radius:12px;font-weight:600;">
+      Ingresar como Administrador
+    </button>
+
+    <p id="errorClave" style="color:red;margin-top:10px;font-size:13px;"></p>
+  </div>
+</div>
 <!-- Leaflet CSS y JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -568,7 +608,22 @@ window.addEventListener('load', ()=>{
     $("modalBienvenida").style.display='flex';
   }
 });
+/* =========================
+   🔐 BLOQUEO ADMIN
+========================= */
 
+const CLAVE_ADMIN = "somoto2026"; // 🔥 Cambia esta clave
+
+function verificarAdmin(){
+  const clave = document.getElementById("claveAdmin").value.trim();
+  const error = document.getElementById("errorClave");
+
+  if(clave === CLAVE_ADMIN){
+    document.getElementById("bloqueoTotal").style.display = "none";
+  }else{
+    error.innerText = "❌ Clave incorrecta";
+  }
+}
 /* =========================
    EMPRENDEDORES
 ========================= */
